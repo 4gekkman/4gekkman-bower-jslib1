@@ -1,64 +1,87 @@
-/**
- *
- * Оглавление
- *
- * 	> AddEvent									| Назначить эл-ту функ.обработчик событи(ю/ий) [кроссбраузерно]
- * 	> removeEvent								| Удалить у эл-та функ.обработчик события [кроссбраузерно]
- * 	> fixEvent									| FIX всех IE-несовместимостей при работе с событиями
- *
- * 	> addClass									| Добавить эл-ту указанный класс
- * 	> removeClass								| Удалить у эл-та указанный класс
- * 	> checkClass								| Проверить наличие у эл-та указанного класса
- *
- * 	> getBoundingDocRect				| Получить obj с внеш. размерами x,y эл-та, и его док. коорд. относ. ЛВ угла document
- * 	> getBrowserWindowMetrics		| Получить obj с размерами x,y окна браузера, его клиент. и док. коорд-ми ЛВ и ПН углов окна браузера
- *
- * 	> showModal								  | Функция вызывает модальное окно с text, и кнопкой "Да", вызывающей callback
- *
- * 	> ajax										  | Функция для отправки асинхронного AJAX-запроса
- * 	> getXhr										| Кроссбраузерно создаёт XHR-объект (в т.ч. для IE6)
- * 	> makeJSON									| Создать json-строку из переданного массива пар значений
- *
- * 	> create_button						  | Функция конструирует из конфига кнопку, можно указать колбэк функцию.
- *  > create_text							  | Функция конструирует из конфига и возвращает эл-т input type='text'
- *  > create_textarea           | Функция конструирует из конфига и возвращает эл-т textarea
- *  > create_select							| Функция конструирует из конфига и возвращает эл-т select
- *  > create_checkbox_block		  | Функция конструирует из конфига и возвращает блок чекбоксов
- *  > create_radio_block			  | Функция конструирует из конфига и возвращает блок радиобуттонов
- *
- *  > get_form_data   				  | Опрашивает эл-ты формы с указанными ID, и возвращает объект с результатами
- *
- *  > customPlaceholder					| Организует плейсхолдер для txt-эл.формы, у которых есть атрибут data-placeholder
- *  > setImmediate							| Позволяет поставить выполнение указанного кода в конец очереди
- *  > check_ie8									| Проверить, является ли текущий браузер IE <= 8
- *  > check_ie9									| Проверить, является ли текущий браузер IE <= 9
- *  > get_object_type						| Получить строку с типом объекта
- *	> insertAfter								| Вставить узел x в DOM, как дочерний элемент e, после элемента y
- *
- *	> isImageExists							| Проверяет, существует ли картинка по указанному URL
- *	> validateEmail							| Валидация адреса email
- *
- * 	> notify										| На N секунд показывает в верхней части экрана плашку с заданной инфой
- *
- *	> clickmenu									| Открывает меню с указанным функционалам, помещая его ЛВ угол в точку с указанными докум.коорд. относ.body
- *	> urlRusLat									| Функция для транслитерации РУС -> ENG
- *
- *	> tooltip										| [Срабатывает при старте] Показывает подсказку для эл-в с польз.атрибутом data-tooltip, при наведении курсора на эл-т
- *	> hasYScrollbar							| Присутствует ли вертикальный скроллбар в окне браузера
- *
- * 	> getInpCursorPos						| Получить позицию курсора в текстовом input в символах
- *  > setInpCursorPos						| Установить позицию курсора в текстовом input в символах
- *
- *  > getCookie									| Извлечь куку по имени из document.cookie
- *	> setCookie									| Записать куку
- *	> deleteCookie							| Удалить куку
- *
- *  > getChar                   | Кроссбраузерно получить код символа из события keypress
- *
- *  > cubicbezier               | Изменение значение по заданной кривой
- *  > smoothscrollyTo           | Плавно изменить прокрутку окна по координате Y к указанной координате
- *
- */
+/*//==================================================////
+////                                                  ////
+////         Bower-пакет: 4gekkman-bower-jslib1       ////
+////                                                  ////
+////==================================================////
+////                      ////
+////         Ссылки       ////
+////                      ////
+////======================////
+
+
+	# Официальный репозиторий bower-пакета
+			https://github.com/4gekkman/4gekkman-bower-jslib1
+
+
+////==================================================////
+////                         ////
+////        Оглавление       ////
+////                         ////
+////=========================////
+
+
+	• Cобытия
+
+		- AddEvent									| Назначить эл-ту функ.обработчик событи(ю/ий) [кроссбраузерно]
+		- removeEvent								| Удалить у эл-та функ.обработчик события [кроссбраузерно]
+		- fixEvent									| FIX всех IE-несовместимостей при работе с событиями
+
+  •	Классы
+
+  	- addClass									| Добавить эл-ту указанный класс
+  	- removeClass								| Удалить у эл-та указанный класс
+  	- checkClass								| Проверить наличие у эл-та указанного класса
+
+  • Размеры элемента
+
+		- getBoundingDocRect				| Получить obj с внеш. размерами x,y эл-та, и его док. коорд. относ. ЛВ угла document
+		- getBrowserWindowMetrics		| Получить obj с размерами x,y окна браузера, его клиент. и док. коорд-ми ЛВ и ПН углов окна браузера
+
+  • Модальное окно и notify
+
+    - showModal								  | Функция вызывает модальное окно с text, и кнопкой "Да", вызывающей callback
+    - notify										| На N секунд показывает в верхней части экрана плашку с заданной инфой
+
+	• AJAX
+
+		- ajax										  | Функция для отправки асинхронного AJAX-запроса
+		- getXhr										| Кроссбраузерно создаёт XHR-объект (в т.ч. для IE6)
+		- makeJSON									| Создать json-строку из переданного массива пар значений
+
+  • Куки
+
+ 		- getCookie									| Извлечь куку по имени из document.cookie
+ 		- setCookie									| Записать куку
+ 		- deleteCookie							| Удалить куку
+
+  • Прочее
+
+  	- customPlaceholder					| Организует плейсхолдер для txt-эл.формы, у которых есть атрибут data-placeholder
+  	- setImmediate							| Позволяет поставить выполнение указанного кода в конец очереди
+  	- check_ie8									| Проверить, является ли текущий браузер IE <= 8
+  	- check_ie9									| Проверить, является ли текущий браузер IE <= 9
+  	- get_object_type						| Получить строку с типом объекта
+  	- insertAfter								| Вставить узел x в DOM, как дочерний элемент e, после элемента y
+  	- isImageExists							| Проверяет, существует ли картинка по указанному URL
+  	- validateEmail							| Валидация адреса email
+  	- clickmenu									| Открывает меню с указанным функционалам, помещая его ЛВ угол в точку с указанными докум.коорд. относ.body
+  	- urlRusLat									| Функция для транслитерации РУС -> ENG
+  	- tooltip										| [Срабатывает при старте] Показывает подсказку для эл-в с польз.атрибутом data-tooltip, при наведении курсора на эл-т
+  	- hasYScrollbar							| Присутствует ли вертикальный скроллбар в окне браузера
+  	- getInpCursorPos						| Получить позицию курсора в текстовом input в символах
+  	- setInpCursorPos						| Установить позицию курсора в текстовом input в символах
+  	- getChar                   | Кроссбраузерно получить код символа из события keypress
+  	- cubicbezier               | Изменение значение по заданной кривой
+  	- smoothscrollyTo           | Плавно изменить прокрутку окна по координате Y к указанной координате
+
+
+
+////==================================================////
+////                         ////
+////        Содержание       ////
+////                         ////
+////=========================//*/
+
 
 
 
@@ -965,6 +988,198 @@ function showModal(config) {
 }
 
 
+/*-------------------------------------
+| > notify
+|--------------------------------------
+| На N секунд показывает в верхней части экрана плашку с заданной инфой
+
+	Аргументы
+		- config		| конфигурационный объект
+
+	Возвращает
+		- id созданного элемента
+
+	Конфигурационный объект
+
+		{
+		 	msg,			| *	| html или строка с сообщением, которое надо показывать
+		 	time,			| 	| кол-во секунд, в течение которых надо показывать плашку
+		 	target,		| 	|	dom-элемент, которому будет принадлежать dom-элемент-плашка
+			width,		|  	| ширина плашки px
+			height,		| 	| высота плашки px
+			loading,	|		| url анимированной gif-картинки, демонстрирующей, что идёт загрузка
+			color,		|		| цвет плашки, если не задан, то идёт стандартный серый
+			fontcolor,|		| цвет текста
+			speed,		|		| скорость раскрытия/закрытия плашки
+			only			|		| закрывать ли все предыдущие подсказки при появлении новой? (0 | 1)
+		}
+
+	Пример использования
+
+		var notid = notify({
+				msg: 'Загрузка...',
+				time: '7',
+				height: '50px',
+				speed: '.3',
+				only: 1
+			});
+
+-------------------------------------*/
+
+function notify(config) {
+
+	// 1. Если config не передан, задать конф. объект по умолчанию
+	if(!config) config = {};
+	if(!config.msg) return 0;
+	if(!config.time) config.time = 5;
+	if(!config.target) config.target = document.body;
+	if(!config.width) config.width = '';
+	if(!config.height) config.height = 50;
+	if(!config.loading) config.loading = '';
+	if(!config.color) config.color = '#eee';
+	if(!config.fontcolor) config.fontcolor = '#000';
+	if(!config.speed) config.speed = '.3';
+	if(!config.only) config.only = 1;
+
+		// 1.1. Удалить все предыдущие 50 подсказок, если config.only == 1
+		if(config.only == 1) {
+			for(var i=0; i<50; i++){
+				var id = 'notyplate_perspective_'+i;
+				var e = document.getElementById(id);
+				if(e) e.parentNode.removeChild(e);
+			}
+		}
+
+	// 2. Сгенерировать HTML-структуру плашки
+	var perspective = document.createElement('div');
+	var main = document.createElement('div');	perspective.appendChild(main);
+
+	// 3. Назначить элементам css-классы
+	perspective.className = 'notyplate_perspective_css';
+	main.className = 'notyplate_main_css';
+
+	// 4. Назначить элементу perspective id
+	var num = 0;
+	var id = '';
+	for(var i=0; i<1000; i){
+		id = 'notyplate_perspective_'+num;
+		if(document.getElementById(id)) { num++; continue; }
+		break;
+	}
+	perspective.id = id;
+
+	// 5. Добавить внутрь плашки переданный текст
+	main.innerHTML = config.msg;
+
+	// 6. Задать элементам плашки стандартные css-стили (в соотв. с параметрами)
+
+		// 6.1. Стили для perspective
+		perspective.style.cssText = (function () {/*
+
+			-webkit-perspective: 500px;
+			perspective: 500px;
+
+			position: fixed;
+			width: 100%;
+			top: -5px;
+			text-align: center;
+			height: 1px;
+			z-index: 1000;
+
+		*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+
+		// 6.2. Стили для main
+		main.style.cssText = (function () {/*
+
+			display: inline-block;
+
+			height: 30px;
+			background-color: #eee;
+			line-height: 30px;
+			padding: 10px 20px;
+			text-align: center;
+			box-shadow: 0 1px 1px rgba(0,0,0,.2);
+			border: 1px solid #777;
+			border-radius: 0 0 5px 5px;
+
+			-webkit-transition: all .5s ease-in-out;
+				 -moz-transition: all .5s ease-in-out;
+					 -o-transition: all .5s ease-in-out;
+							transition: all .5s ease-in-out;
+
+			-webkit-transform-origin: 50% 0%;
+				 -moz-transform-origin: 50% 0%;
+					-ms-transform-origin: 50% 0%;
+					 -o-transform-origin: 50% 0%;
+							transform-origin: 50% 0%;
+
+			-webkit-transform: rotateX(-90deg);
+				 -moz-transform: rotateX(-90deg);
+					-ms-transform: rotateX(-90deg);
+					 -o-transform: rotateX(-90deg);
+							transform: rotateX(-90deg);
+
+			opacity: .5;
+
+		*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+		if(config.width) main.style.width 						= config.width + 'px';
+		main.style.height 					= config.height + 'px';
+		main.style.backgroundColor 	= config.color;
+		main.style.color 						= config.fontcolor;
+
+		main.style.transitionDuration = config.speed+'s';
+		main.style.webkitTransitionDuration = config.speed+'s';
+		main.style.MozTransitionDuration = config.speed+'s';
+		main.style.OTransitionDuration = config.speed+'s';
+		main.style.msTransitionDuration = config.speed+'s';
+
+	// 7. Добавить созданную структуру в target
+	config.target.appendChild(perspective);
+
+	// 8.	Повернуть созданную структуру по оси X, установив угол на 0 градусов
+	// - И сделать opacity 100
+	// - Сделать это через 2 секунды, дав браузеру время на обработку
+	setTimeout(function(main){
+
+		main.style.opacity = '1';
+
+		main.style.webkitTransform = 'rotateX(0deg)';
+		main.style.MozTransform = 'rotateX(0deg)';
+		main.style.msTransform = 'rotateX(0deg)';
+		main.style.OTransform = 'rotateX(0deg)';
+		main.style.transform = 'rotateX(0deg)';
+
+	}, 100, main);
+
+	// 9. Убрать плашку через time секунд
+	setTimeout(function(id, main, perspective, speed){
+
+		// 1) Скроем в 3d-стиле плашку с инфой
+		// - И сделать opacity == 0
+		main.style.opacity = '0';
+
+		main.style.webkitTransform = 'rotateX(-90deg)';
+		main.style.MozTransform = 'rotateX(-90deg)';
+		main.style.msTransform = 'rotateX(-90deg)';
+		main.style.OTransform = 'rotateX(-90deg)';
+		main.style.transform = 'rotateX(-90deg)';
+
+		// 2) Удалим dom-элемент плашки (с id) через speed секунд
+		setTimeout(function(perspective){
+
+			if(perspective.parentNode)
+				perspective.parentNode.removeChild(perspective);
+
+		}, speed*1000, perspective);
+
+	}, +config.time*1000, id, main, perspective, config.speed);
+
+	// 10. Вернуть id элемента perspective
+	return id;
+
+}
+
+
 
 /*-------------------------------------
 | > getXhr
@@ -1243,1967 +1458,60 @@ function makeJSON(pairs) {
 }
 
 
-/*-------------------------------------
-| > create_button
-|--------------------------------------
-| Функция конструирует из конфига кнопку, можно указать колбэк функцию.
-
-
-	Аргументы:
-		- config		| конфигурационный объект
-
-	Возвращает:
-		- ID созданного элемента в случае успеха.
-		- 0 в случае неудачи.
-
-	Как работает
-		- Генерирует кнопку, представляющую собой простой div.
-		- Назначает ей указанную callback-фукнкци, срабатывающую при нажатии.
-		- Вставляет созданную кнопку в указанный элемент.
-		- Возвращает ID созданного элемента.
-
-	Конфигурационный объект
-
-			{
-				id: [string text],              | 	| id элемента
-				target: [ссылка],								|   | куда вставить созданную кнопку
-				classes: [массив],							|   | массив классов, которые надо присвоить кнопке
-				text: [string],									|   | надпись на кнопке
-				size: [массив],									|   | массив с размерами в px: [ширина, высота, размер текста]
-				standard_css: [1/0],						|   | использовать ли стандартный css для кнопки
-				callback: [ссылка на функцию]		|		| функция, которая будет вызвана при нажатии на кнопку
-			}
-
-	Конфигурационный объект "по умолчанию"
-
-			{
-				target: Main.body,
-				text: 'Кнопка',
-				size: [60, 20, 16],
-				standard_css: 1,
-				callback: function() { alert('Вы нажали на кнопку'); }
-			}
-
-	Что с CSS?
-		- Тут есть 2 варианта:
-
-			1) Использовать свой, кастомный CSS.
-				- Это вариант используется умолчанию.
-				- Сгенерированный HTML не получает никакого CSS.
-				- Подразумевается, что соотв. CSS для эл-та с ID == config.id присутствует в документе.
-				- И в этом css, для всех классов внутри эл-та с config.id описано всё, что надо.
-
-			2) Использовать стандартный CSS.
-				- Преимущество этого варианта в том, что не требуется создавать
-					никаких внешних CSS-правил. Вместо этого стандартные CSS-правила
-					создаются при помощи JS.
-				- Чтобы воспользоваться этим вариантом, в конфиге надо передать
-					параметр 'standard_css' == '1'.
-
-	Шаблон HTML-структуры
-
-		<div 	id='[config.id]'
-					class='config.classes[0] config.classes[1] ...'
-					style='width: [config.size[0]]px; height: [config.size[1]]px; text-size: [config.size[2]]px; '>
-
-					[config.text]
-
-		</div>
-
-	Примеры использования
-
-		- Создать кнопку с конфигом по умолчанию
-
-				create_button();
-
-		- Создать кнопку, и передать ей конфиг с параметрами:
-
-				create_button({
-					id: 'myButton1',
-					target: 'content',
-					classes: ['mb1', 'mb2'],
-					text: 'Кнопа',
-					size: ['160', '30', '16'],
-					standard_css: 1,
-					callback: function() { alert('Кнопка нажата'); }
-				});
-
-
--------------------------------------*/
-function create_button(config) {
-
-	// 1. Если config не передан, задать конф. объект по умолчанию
-	if(!config) config =
-
-		{
-			target: document.body,
-			text: 'Кнопка',
-			size: [60, 20, 16],
-			standard_css: 1,
-			callback: function() { alert('Вы нажали на кнопку'); }
-		};
-		if(!config.target) config.target = document.body;
-		if(!config.text) config.text = 'Кнопка';
-		if(!config.size) config.size = [60, 20, 16];
-		if(!config.callback) config.callback = function() { alert('Вы нажали на кнопку'); };
-
-	// 2. Сгенерировать HTML-структуру
-	var button = document.createElement('div');
-
-	// 3. Применить к созданной HTML-структуре переданные в конфиге параметры
-
-		// id
-			if(config.id) button.id = config.id;
-
-			// 3.1.2. В противном случае сгенерировать и добавить уникальный id
-			for(var i=0; i<1000; i++) {
-				if(!document.getElementById('button_'+i)) {
-					button.id = 'button_'+i;
-					break;
-				}
-			}
-
-		// classes
-			for(var i=0; i<config.classes.length; i++) {
-				addClass(button, config.classes[i]);
-			}
-
-		// text
-			if(config.text) button.innerHTML = config.text;
-
-		// standard_css
-		if(config.standard_css) {
-
-			button.style.cssText = (function () {/*
-
-				display: inline-block;
-				text-align: center;
-				background-color: #dfdada;
-				cursor: pointer;
-				padding: 5px 10px;
-				border-radius: 5px;
-				background-image: linear-gradient(to bottom, #FCFCFC 0%, #9C9C9C 100%);
-
-			*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-		}
-
-		// size
-			if(config.size) {
-
-				if(config.size[0]) button.style.width = config.size[0]+'px';
-				if(config.size[1]) button.style.height = config.size[1]+'px';
-				if(config.size[2]) button.style.fontSize = config.size[2]+'px';
-
-			}
-
-
-	// 4. Вставить созданный элемент в конец эл-та с id = target
-
-		// Получить ссылку на элемент target
-		var target = document.getElementById(config.target);
-
-		// Если target пуст, завершить работу
-		if(!target) {
-			console.log('Скрипт getFormElem. Target не найден. Завершаю.');
-			return 0;
-		}
-
-		// Добавить input в target
-		target.appendChild(button);
-
-	// 5. Кроссбраузерно назначить обработчик события 'click' эл-ту button_ok
-	addEvent(button, 'click', function(event){
-
-		// 5.1. Выполнить функцию callback без аргументов.
-		config.callback('');
-
-		// 5.2. Кроссбраузерно получить объект-событие с уже примененными IE FIX-ами
-		event = fixEvent(event);
-
-		// 5.3. Кроссбраузероно остановить всплытие события.
-		event.stopPropagation ? event.stopPropagation() :
-														(event.cancelBubble=true);
-
-	});
-
-
-	// 5. Вернуть ID созданной кнопки
-	return config.id;
-
-
+//-------------//
+// > getCookie //
+//-------------//
+// - Извлечь куку по имени из Main.cookie
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
 
-/*-------------------------------------
-| > create_text
-|--------------------------------------
-| Функция генерирует из конфига элемент input type='text' и вставляет в эл-т target
-
-
-	Аргументы:
-		- config		| конфигурационный объект
-
-	Возвращает:
-		- ID созданного элемента в случае успеха.
-		- 0 в случае неудачи.
-
-	Как работает
-		- Генерирует элемент формы input type='text'.
-		- Вставляет его в указанный элемент.
-		- Возвращает ID созданного элемента.
-
-	Конфигурационный объект
-
-			{
-				id: [string text],              | 	| id элемента
-				target: [id целевого эл-та]			|   | куда вставить эл-т
-				value: [string text],						|   | тект содержания
-				placeholder: [string text],			|   | плейсхолдер
-				size: [число],									|   | ширина элемента в символах
-				autofocus: [1/0],               |   | получит ли элемент автофокус
-				readonly: [1/0],                |   | запрет на редактирование
-				disabled: [1/0],                |   | отключить ли элемент?
-				validation: [массив],  					|   | Пример: [/\d/, 'Должно быть число']
-				on_blur: [колбэк]								|   | колбэк-функция, срабатывающая при потере фокуса эл-том
-			}
-
-	Конфигурационный объект "по умолчанию"
-
-			{
-				target: Main.body,
-				placeholder: 'плейсхолдер'
-			}
-
-
-	Примечания
-
-		> Что будет, если не указывать ID элементам
-			- Будет автоматически сгенерирован уникальный ID.
-
-		> Как работает валидация
-			- В validation[0] лежит регулярное выражение для валидации.
-			- В validation[1] лежит текст для вывода в случае ошибки валидации.
-
-			- В атрибут data-regexp записывается значение validation[0]
-			- В атрибут data-invalidtext записывается значение validation[1]
-
-			- При каждом вводе символа, а также при потере фокуса, происходит:
-				- Содержимое сравнивается с regexp из validation[0]
-				- Если валид, то элементу присваивается класс 'elem_is_valid',
-					а класс 'elem_is_invalid' убирается.
-				- Если не валид, то элементу присваивается класс 'elem_is_invalid'
-					а класс 'elem_is_valid' убирается.
-
-		> О кастомном плейслолдере
-			- В IE9- атрибут placeholder не работает.
-			- Нужна же какая-то ему замена? Её организует функция customPlaceholder().
-			- Её нужно в коде помещать уже после того, как DOM-структура всех эл-тов создана.
-			- Она срабатывает в том случае, если текущий браузер IE8-.
-			- Плюс, надо присвоить эл-ту атрибут data-placeholder = [текст плейсхолдера]
-
-	Примеры использования
-
-		- Создать элемент с конфигом по умолчанию:
-
-					create_text();
-
-		- Создать input text с плейсхолдером, валидацией и on_blur, получающий автофокус
-
-					create_text({
-						id: 'myText',
-						target: 'content',
-						placeholder: 'Плейсхолдер',
-						size: 40,
-						autofocus: 1,
-						validation: [/\d/, 'Должно быть число'],
-						on_blur: function(event) {
-							alert('Ой! Потерял фокус!')
-						}
-					});
-
-		- Создать отключённый (disabled) input text с плейсхолдером
-
-					create_text({
-						id: 'myText',
-						value: 'корова',
-						target: 'content',
-						placeholder: 'Плейсхолдер',
-						size: 20,
-						disabled: 1
-					});
-
-		- Создать input text со значением 'Хрен', только для чтения (readonly), и с плейсхолдером
-
-					create_text({
-						id: 'myText',
-						target: 'content',
-						placeholder: 'Плейсхолдер',
-						size: 20,
-						value: 'Хрен',
-						readonly: 1
-					});
-
-
--------------------------------------*/
-function create_text(config) {
-
-	// 1. Если config не передан, задать конф. объект по умолчанию
-	if(!config) config =
-
-		{
-			target: document.body,
-			placeholder: 'плейсхолдер'
-		};
-		if(!config.target) config.target = document.body;
-		if(!config.placeholder) config.placeholder = 'Плейсхолдер';
-
-	// 3. Создать новый элемент типа 'text'
-	//      - Указать ему соотв. значения для атрибутов: id, value и placeholder
-
-		// Сгенерировать эл-т input
-		var input = document.createElement('input');
-
-		// Настройка элемента
-
-			// type
-			input.setAttribute('type', 'text');
-
-			// autofocus
-			if(config.autofocus) input.setAttribute('autofocus','');
-
-			// readonly
-			if(config.readonly) input.setAttribute('readonly','');
-
-			// disabled
-			if(config.disabled) input.setAttribute('disabled','');
-
-			// validation
-			if(config.validation) {
-				input.setAttribute('data-regexp', config.validation[0]);
-				input.setAttribute('data-invalidtext', config.validation[1]);
-			}
-
-			// id
-
-				// Если id было задано в config, и такого ещё нет, установить его
-				if(config.id && !document.getElementById(config.id))
-					input.setAttribute('id', config.id);
-
-				// Если id не было задано в config, установить уникальный ID
-				else {
-					for(var i=0; i<100; i++) {
-						if(!document.getElementById('getFormElem_text_'+i)) {
-							config.id = 'getFormElem_text_'+i;
-							input.setAttribute('id', config.id);
-							break;
-						}
-					}
-				}
-
-			// value
-			if(config.value) input.setAttribute('value', config.value);
-
-			// size
-			if(config.size) input.setAttribute('size', config.size);
-
-		// Добавить элементу классы 'getFormElem' и 'getFormElem_text'
-		input.className += ' getFormElem getFormElem_text';
-
-	// 4. Вставить созданный элемент в конец эл-та с id = target
-
-		// Получить ссылку на элемент target
-		var target = document.getElementById(config.target);
-
-		// Если target пуст, завершить работу
-		if(!target) {
-			console.log('Скрипт getFormElem. Target не найден. Завершаю.');
-			return 0;
-		}
-
-		// Добавить input в target
-		target.appendChild(input);
-
-	// 5. Если валидация включена, то отработать её.
-	if(config.validation) {
-
-		// 5.1. Создать валидационную функцию
-		// - Здесь target - элемент, для которого срабатывает валидационная функция.
-		var validate = function(target) {
-
-				// Сформировать регулярное выражение
-				var re = target.getAttribute('data-regexp');
-				re = new RegExp(re.replace(/^\//gmi, '').replace(/[gmi]/gmi, '').replace(/\/$/gmi, ''), 'gmi');
-
-				// Если re матчится с target.value, записать 1 в data-isvalid
-				if(re.test(target.value)) {
-					addClass(target, 'elem_is_valid');
-					removeClass(target, 'elem_is_invalid');
-				}
-
-				// Иначе, записать 0
-				else {
-					addClass(target, 'elem_is_invalid');
-					removeClass(target, 'elem_is_valid');
-				}
-
-		};
-
-		// 5.2. Выполнить стартовую валидацию для элемента input
-		validate(input);
-
-		// 5.3. Кроссбраузерно назначить функции-обработчики событии
-		// - 'input', 'keyup', 'paste', 'cut', 'blur' эл-ту target
-		// - Валидация будет проводиться при каждом изменении текста в элементе
-		var handler = function() {
-
-			// 5.3.1. Кроссбраузерно получить объект-событие с уже примененными IE FIX-ами.
-			// 		      Также, кроссбраузерно получить target-элемент
-
-				//Кроссбраузерно получить объект-событие с уже примененными IE FIX-ами
-				var event = fixEvent(this.myEvent);
-
-				//Кроссбраузерно получить target-элемент
-				var target = 	event && event.target ||
-											event.srcElement;
-
-			// 5.3.2. Проверить, матчится ли target.value с регулярным выражением
-			//          из атрибута data-regexp.
-			// - Если да, то записать эл-ту target класс 'elem_is_valid'.
-			// - Если нет, то записать эл-ту target класс 'elem_is_invalid'.
-			validate(target);
-
-		};
-		addEvent(input, ['input', 'keyup', 'paste', 'cut', 'blur'], function(event){
-
-			// Поставить handler в конец очереди на выполнение
-			setImmediate(handler)
-
-		});
-
-
-	}
-
-	// 6. Если config.onblur передана, то отработать её.
-	if(config.on_blur) {
-
-		// Добавить функцию config.on_blur, как обработчик события blur
-		addEvent(input, 'blur', config.on_blur);
-
-	}
-
-	// 7.  Если плейсхолдер включен, отработать его
-	if(config.placeholder) {
-
-		// Установить значение атрибута placeholder
-		input.placeholder = config.placeholder;
-
-		// Если браузер - IE <= 9:
-		// - Атрибут placeholder в нём не работает.
-		// - Поэтому установить в него свой кастомный плейсхолдер.
-		// - При этом значение 'value' будет потеряно.
-		// - Не забыть применить после этого скрипта скрипт customPlaceholder();
-		if(check_ie9()) {
-			input.setAttribute('data-placeholder', config.placeholder);
-			customPlaceholder(config.id);
-		}
-
-	}
-
-	// 8. Вернуть id созданного элемента или 0
-	if(config.id) return config.id;
-	else return 0;
-
-
+//-------------//
+// > setCookie //
+//-------------//
+// - Записать куку
+function setCookie(name, value, options) {
+  options = options || {};
+
+  var expires = options.expires;
+
+  if (typeof expires == "number" && expires) {
+    var d = new Date();
+    d.setTime(d.getTime() + expires * 1000);
+    expires = options.expires = d;
+  }
+  if (expires && expires.toUTCString) {
+    options.expires = expires.toUTCString();
+  }
+
+  value = encodeURIComponent(value);
+
+  var updatedCookie = name + "=" + value;
+
+  for (var propName in options) {
+    updatedCookie += "; " + propName;
+    var propValue = options[propName];
+    if (propValue !== true) {
+      updatedCookie += "=" + propValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
 }
 
 
-/*-------------------------------------
-| > create_textarea
-|--------------------------------------
-| Функция конструирует из конфига и возвращает эл-т textarea
-
-
-	Аргументы:
-		- config		| конфигурационный объект
-
-	Возвращает:
-		- ID созданного элемента в случае успеха.
-		- 0 в случае неудачи.
-
-	Как работает
-		- Генерирует элемент формы textarea
-		- Вставляет его в указанный элемент.
-		- Возвращает ID созданного элемента.
-
-	Конфигурационный объект
-
-			{
-				id: [string text],              | 	| id элемента
-				target: [id целевого эл-та]			|   | куда вставить эл-т
-				value: [string text],						|   | тект содержания
-				placeholder: [string text],			|   | плейсхолдер
-				autogrow [1/0],									|		| будет ли автоматически расти в завис. от контента
-				cols: [число],									|   | ширина элемента в символах
-				rows: [число],									|		| высота элемента в строках
-				autofocus: [1/0],               |   | получит ли элемент автофокус
-				readonly: [1/0],                |   | запрет на редактирование
-				disabled: [1/0],                |   | отключить ли элемент?
-				validation: [массив],  					|   | Пример: [/\d/, 'Должно быть число']
-				on_blur: [колбэк]								|   | колбэк-функция, срабатывающая при потере фокуса эл-том
-			}
-
-	Конфигурационный объект "по умолчанию"
-
-			{
-				target: Main.body,
-				placeholder: 'Плейсхолдер',
-				autogrow: 1,
-				rows: 100,
-				cals: 2
-			}
-
-	Шаблон HTML-структуры
-
-		<textarea id='config.id'
-							>
-			[config.value]
-		</textarea>
-
-	Примечания
-
-		> Что будет, если не указывать ID элементам
-			- Будет автоматически сгенерирован уникальный ID.
-
-		> Как работает валидация
-			- В validation[0] лежит регулярное выражение для валидации.
-			- В validation[1] лежит текст для вывода в случае ошибки валидации.
-
-			- В атрибут data-regexp записывается значение validation[0]
-			- В атрибут data-invalidtext записывается значение validation[1]
-
-			- При каждом вводе символа, а также при потере фокуса, происходит:
-				- Содержимое сравнивается с regexp из validation[0]
-				- Если валид, то элементу присваивается класс 'elem_is_valid',
-					а класс 'elem_is_invalid' убирается.
-				- Если не валид, то элементу присваивается класс 'elem_is_invalid'
-					а класс 'elem_is_valid' убирается.
-
-		> О кастомном плейслолдере
-			- В IE9- атрибут placeholder не работает.
-			- Нужна же какая-то ему замена? Её организует функция customPlaceholder().
-			- Её нужно в коде помещать уже после того, как DOM-структура всех эл-тов создана.
-			- Она срабатывает в том случае, если текущий браузер IE8-.
-			- Плюс, надо присвоить эл-ту атрибут data-placeholder = [текст плейсхолдера]
-
-	Примеры использования
-
-		- Создать элемент с конфигом по умолчанию:
-
-					create_textarea();
-
-		- Ещё пример, с плейсхолдером, валидацией и on_blur:
-
-					create_textarea({
-						id: 'textArea1',
-						target: 'content',
-						placeholder: 'Введи имя',
-						autogrow: 0,
-						cols: 40,
-						rows: 3,
-						validation: [/\d/, 'Должно быть число'],
-						on_blur: function(target) {
-							alert('Ой! Потерял фокус!')
-						}
-					});
-
-
-
--------------------------------------*/
-function create_textarea(config) {
-
-	// 1. Если config не передан, задать конф. объект по умолчанию
-	if(!config) config =
-
-		{
-			target: document.body,
-			placeholder: 'плейсхолдер',
-			autogrow: 1
-		};
-		if(!config.target) config.target = document.body;
-		if(!config.placeholder) config.placeholder = 'Плейсхолдер';
-		if(!config.autogrow && config.autogrow !== 0) config.autogrow = 1;
-
-	// 2. Сгенерировать HTML-структуру
-	var textarea = document.createElement('textarea');
-
-	// 3. Применить к созданной HTML-структуре переданные в конфиге параметры
-
-		// id
-
-			// Если ID был передан в конфиге, присвоить его элементу
-			if(config.id) textarea.id = config.id;
-
-			// В противном случае сгенерировать и добавить уникальный id
-			else {
-				for(var i=0; i<1000; i++) {
-					if(!document.getElementById('textarea_'+i)) {
-						config.id = 'textarea_'+i;
-						textarea.id = config.id;
-						break;
-					}
-				}
-			}
-
-		// value
-		if(config.value) textarea.value = config.value;
-
-		// cols
-		if(config.cols) textarea.setAttribute('cols', config.cols);
-
-		// rows
-		if(config.cols) textarea.setAttribute('rows', config.rows);
-
-		// validation
-		if(config.validation) {
-			textarea.setAttribute('data-regexp', config.validation[0]);
-			textarea.setAttribute('data-invalidtext', config.validation[1]);
-		}
-
-		// autofocus
-		if(config.autofocus) textarea.setAttribute('autofocus', '');
-
-		// readonly
-		if(config.readonly) textarea.setAttribute('readonly', '');
-
-		// disabled
-		if(config.disabled) textarea.setAttribute('disabled', '');
-
-		// autogrow
-
-			// Если autogrow включён, отключим для textarea вертикальный скролл
-			if(config.autogrow) textarea.style.overflow = 'hidden';
-
-
-	// 4. Если валидация включена, то отработать её.
-	if(config.validation) {
-
-		// 4.1. Создать валидационную функцию
-			// - Здесь target - элемент, для которого срабатывает валидационная функция.
-			var validate = function(target) {
-
-					// Сформировать регулярное выражение
-					var re = target.getAttribute('data-regexp');
-					re = new RegExp(re.replace(/^\//gmi, '').replace(/[gmi]/gmi, '').replace(/\/$/gmi, ''), 'gmi');
-
-					// Если re матчится с target.value, записать 1 в data-isvalid
-					if(re.test(target.value)) {
-						addClass(target, 'elem_is_valid');
-						removeClass(target, 'elem_is_invalid');
-					}
-
-					// Иначе, записать 0
-					else {
-						addClass(target, 'elem_is_invalid');
-						removeClass(target, 'elem_is_valid');
-					}
-
-			};
-
-			// 4.2. Выполнить стартовую валидацию для элемента input
-			validate(textarea);
-
-			// 4.3. Кроссбраузерно назначить функции-обработчики событии
-			// - 'input', 'keyup', 'paste', 'cut', 'blur' эл-ту target
-			// - Валидация будет проводиться при каждом изменении текста в элементе
-			var handler = function() {
-
-				// 4.3.1. Кроссбраузерно получить объект-событие с уже примененными IE FIX-ами.
-				// 		      Также, кроссбраузерно получить target-элемент
-
-					//Кроссбраузерно получить объект-событие с уже примененными IE FIX-ами
-					var event = fixEvent(this.myEvent);
-
-					//Кроссбраузерно получить target-элемент
-					var target = 	event && event.target ||
-												event.srcElement;
-
-				// 4.3.2. Проверить, матчится ли target.value с регулярным выражением
-				//          из атрибута data-regexp.
-				// - Если да, то записать эл-ту target класс 'elem_is_valid'.
-				// - Если нет, то записать эл-ту target класс 'elem_is_invalid'.
-				validate(target);
-
-			};
-			addEvent(textarea, ['input', 'keyup', 'paste', 'cut', 'blur'], function(event){
-
-				// Поставить handler в конец очереди на выполнение
-				setImmediate(handler)
-
-			});
-
-	}
-
-
-	// 5. Если autogrow включён, то отработать его
-	if(config.autogrow) {
-
-		// 5.1. Кроссбраузерно назначить функции-обработчики событии
-		// 'input', 'keyup', 'paste', 'cut', 'blur' эл-ту textarea
-		var handler2 = function() {
-
-			// 5.1.1. Кроссбраузерно получить объект-событие с уже примененными IE FIX-ами.
-			// 		      Также, кроссбраузерно получить target-элемент
-
-				//Кроссбраузерно получить объект-событие с уже примененными IE FIX-ами
-				var event = fixEvent(this.myEvent);
-
-				//Кроссбраузерно получить target-элемент
-				var target = 	event && event.target ||
-											event.srcElement;
-
-			// 5.1.2. Проверить, если у target scrollHeight > clientHeight, значит
-			//        появилась полоса прокрутки. Чтобы её убрать, надо увеличить
-			//        размер textarea по высоте до scorllHeigth. Сделать это.
-			if (target.scrollHeight > target.clientHeight) {
-    		target.style.height = target.scrollHeight + "px";
-			}
-
- 		};
-		addEvent(textarea, ['input', 'keyup', 'paste', 'cut', 'blur'], function(event){
-
-			// Передать event в handler (будет доступен, как myEvent)
-			window.myEvent = event;
-
-			// Поставить handler в конец очереди на выполнение
-			setImmediate(handler2)
-
-		});
-
-	}
-
-	// 6. Если config.onblur передана, то отработать её.
-	if(config.on_blur) {
-
-		// Добавить функцию config.on_blur, как обработчик события blur
-		addEvent(textarea, 'blur', config.on_blur);
-
-	}
-
-	// 7. Вставить созданный элемент в конец эл-та с id = target
-
-		// Получить ссылку на элемент target
-		var target = document.getElementById(config.target);
-
-		// Если target пуст, завершить работу
-		if(!target) {
-			console.log('Скрипт getFormElem. Target не найден. Завершаю.');
-			return 0;
-		}
-
-		// Добавить input в target
-		target.appendChild(textarea);
-
-	// 8. Если placeholder включён, отработать его
-	if(config.placeholder) {
-
-		// Установить значение атрибута placeholder
-		textarea.setAttribute('placeholder', config.placeholder);
-
-		// Если браузер - IE <= 9:
-		// - Атрибут placeholder в нём не работает.
-		// - Поэтому установить в него свой кастомный плейсхолдер.
-		// - При этом значение 'value' будет потеряно.
-		// - Не забыть применить после этого скрипта скрипт customPlaceholder();
-		if(check_ie9()) {
-			textarea.setAttribute('data-placeholder', config.placeholder);
-			customPlaceholder(config.id);
-		}
-
-	}
-
-	// 9. Вернуть config.target
-	return config.id;
-
-}
-
-
-/*-------------------------------------
-| > create_select
-|--------------------------------------
-| Функция конструирует из конфига и возвращает эл-т select
-
-
-	Аргументы:
-		- config		| конфигурационный объект
-
-	Возвращает:
-		- ID созданного элемента в случае успеха.
-		- 0 в случае неудачи.
-
-	Как работает
-		- Генерирует элемент формы textarea
-		- Вставляет его в указанный элемент.
-		- Возвращает ID созданного элемента.
-
-	Конфигурационный объект
-
-			{
-				id: [string text],              | 	| id элемента
-				target: [id целевого эл-та]			|   | куда вставить эл-т
-				options: 	[ {										|   | массив объектов с парами value/text
-											value: [значение],|		| value - это значение для атрибута value
-											text: [текст],		|		| text - то, что видит пользователь
-											selected: [0/1]   |   | должна ли эта опция быть выбрана уже при загрузке страницы
-										}, ... ]
-				selected: [значение]						|   | опция с этим value будет выбрана при загрузке (если такая есть)
-				autofocus: [1/0],               |   | получит ли элемент автофокус
-				disabled: [1/0],                |   | отключить ли элемент?
-				on_change: [колбэк]							|   | колбэк-функция, срабатывающая при изменении значения элемента
-			}
-
-	Конфигурационный объект "по умолчанию"
-
-			{
-				target: Main.body,
-				options:	[{value: 'v1', text: 'Вариант 1'},
-									 {value: 'v2', text: 'Вариант 2'},
-									 {value: 'v3', text: 'Вариант 3'}]
-			}
-
-	Шаблон HTML-структуры
-
-		<select id="[config.id]" [config.disabled] [config.autofocus]>
-			<option value="config.options[0].value">config.options[0].text</option>
-			<option value="config.options[1].value">config.options[1].text</option>
-			...
-		</select>
-
-	Примечания
-
-		> Что будет, если не указывать ID элементам
-			- Будет автоматически сгенерирован уникальный ID.
-
-		> Только 1 опция может иметь selected: 1
-			- Если будут иметь больше, то реально из них при загрузке
-				будет выбрана та, что позже всех загрузится.
-
-
-	Примеры использования
-
-		- Полная комплектация, указали все опции:
-
-				create_select({
-					id: 'mySelect1',
-					target: 'content',
-					options: [{value: 'v1', text: 'Значение 1'},
-										{value: 'v2', text: 'Значение 2'},
-										{value: 'v3', text: 'Значение 3'}],
-					on_change: function(event) {
-						console.log('Изменил значение');
-					}
-				});
-
-
-
--------------------------------------*/
-function create_select(config) {
-
-	// 1. Если config не передан, задать конф. объект по умолчанию
-	if(!config) config =
-
-		{
-			target: document.body,
-			options:	[{value: 'v1', text: 'Вариант 1'},
-								 {value: 'v2', text: 'Вариант 2'},
-								 {value: 'v3', text: 'Вариант 3'}]
-		};
-		if(!config.target) config.target = document.body;
-		if(!config.options) config.options = [{value: 'v1', text: 'Вариант 1'},
-																			 	  {value: 'v2', text: 'Вариант 2'},
-																				  {value: 'v3', text: 'Вариант 3'}];
-
-	// 2. Сгенерировать HTML-структуру
-
-		// Сгенерировать элемент select
-		var select = document.createElement('select');
-
-		// Сгенерировать элементы option внутри select
-		var options = [];
-
-		for(var i=0; i<config.options.length; i++) {
-
-			var option = document.createElement('option');
-			options.push(option);
-			select.appendChild(option);
-
-		}
-
-	// 3. Применить к созданной структуре переданные в конфиге параметры
-
-		// id
-
-			// Если ID был передан в конфиге, присвоить его элементу
-			if(config.id) select.id = config.id;
-
-			// В противном случае сгенерировать и добавить уникальный id
-			else {
-				for(var i=0; i<1000; i++) {
-					if(!document.getElementById('select_'+i)) {
-						config.id = 'select_'+i;
-						select.id = config.id;
-						break;
-					}
-				}
-			}
-
-		// value, text и selected для эл-тов option
-		for(var i=0; i<config.options.length; i++) {
-
-			// value
-			options[i].value = config.options[i].value;
-
-			// text
-			options[i].innerHTML = config.options[i].text;
-
-			// selected
-
-				// Если в конфиге для этой опции стоит флаг selected, то присвоить его опции
-				if(config.options[i].selected) options[i].selected = config.options[i].selected;
-
-				// Если в конфиге передана опция config.selected
-				// - И options[i].value == config.selected
-				// - То присвоить опции options[i] флаг selected
-				if(config.selected && options[i].value == config.selected) options[i].selected = 1;
-
-		}
-
-		// autofocus
-		if(config.autofocus) select.autofocus = config.autofocus;
-
-		// disabled
-		if(config.disabled) select.disabled = config.disabled;
-
-
-	// 4. Если config.on_change передана, то отработать её.
-	if(config.on_change) {
-
-		// Добавить функцию config.on_blur, как обработчик события blur
-		addEvent(select, 'change', config.on_change);
-
-	}
-
-
-	// 5. Вставить созданный элемент в конец эл-та с id = target
-
-		// Получить ссылку на элемент target
-		var target = document.getElementById(config.target);
-
-		// Если target пуст, завершить работу
-		if(!target) {
-			console.log('Скрипт getFormElem. Target не найден. Завершаю.');
-			return 0;
-		}
-
-		// Добавить input в target
-		target.appendChild(select);
-
-	// 6. Вернуть config.target
-	return config.target;
-
-}
-
-
-/*-------------------------------------
-| > create_checkbox_block
-|--------------------------------------
-| Функция конструирует из конфига и возвращает блок чекбоксов
-
-
-	Аргументы:
-		- config		| конфигурационный объект
-
-	Возвращает:
-		- ID созданного блока div, содержащего набор чекбоксов в случае успеха
-		- 0 в случае неудачи.
-
-	Как работает
-		- Генерирует div, а внутри него набор input type='checkbox'
-		- Вставляет сгенерированный div с содержимым в указанный элемент
-		- Возвращает ID созданного div-а.
-
-	Конфигурационный объект
-
-			{
-				formId: [string text],          | 	| id формы с чекбоксами
-				formName: [string]							|		| имя формы с чекбоксами
-				target: [id целевого эл-та]			|   | куда вставить эл-т
-				options: 	[{										|   | массив объектов с парами value/text
-					text: [строка],								|		| подпись справа от чекбокса
-					checked: [1/0],								|		| выбран ли чекбокс по умолчанию. или нет
-					disabled: [1/0],							|		| отключён ли чекбокс (нельзя выбрать), или нет
-					name: [string]								|		| имя чекбокса
-									}, ...]
-				standard_css: [string],					|		| установить ли стандартный CSS элементам label
-				on_change: [колбэк]							|   | колбэк-функция, срабатывающая при изменении значения элемента
-			}
-
-	Конфигурационный объект "по умолчанию"
-
-			{
-				target: Main.body,
-				options:	[{text: ' Чекбокс 1', checked: 0, disabled: 0, name: 'checkbox'},
-									 {text: ' Чекбокс 2', checked: 1, disabled: 0, name: 'checkbox'},
-									 {text: ' Чекбокс 3', checked: 0, disabled: 1, name: 'checkbox'}]
-			}
-
-	Шаблон HTML-структуры
-
-		<form id='[config.formId]' name='[config.formName]'>
-			<label>
-				<input type='checkbox' name='[config.options[i].name]' [config.options[i].checked] [config.options[i].disabled]></input>
-				[config.options[i].text]
-			</label
-			...
-		</form>
-
-	Примечания
-
-		> Что будет, если не указывать formId
-			- Будет автоматически сгенерирован уникальный ID.
-
-		> Для чего чекбоксы помещаются в тэг form, и как делать перебор по чекбоксам
-			- Все эл-ты input type='checkbox' помещаются в эл-т form с атрибутом name='[config.formName]'
-			- Внутри формы каждому чекбоксу присваивается атрибут name='[config.options[i].name]'
-			- Внутри одной формы может быть N групп чекбоксов, имеющих одинаковое значение name.
-			- У формы имеются свойства, имя и кол-во которых соответствуют значениям name чекбоксов.
-			- Каждое такое свойство содержит массив ссылок на чекбоксы, у которых name == имени этого свойства.
-			- Допустим, у нас внутри form id='ff' name='f1' есть группа чекбоксов с name='n1'. Как их перебрать?
-
-				- Вариант 1: получить ссылку на форму через её id
-
-						var form = Main.getElementById('ff);
-						for(var i=0; i<form.n1.length; i++) {
-
-							if(form.n1.checked) console.log('Чекбокс '+form.n1.value+' включён!');
-
-						}
-
-				- Вариант 2: получить ссылку на форму через её name
-
-						for(var i=0; i<ff.n1.length; i++) {
-
-							if(ff.n1.checked) console.log('Чекбокс '+ff.n1.value+' включён!');
-
-						}
-
-
-	Примеры использования
-
-		- В полной комплектации:
-
-				create_checkbox_block({
-					formId: 'myCheckbox',
-					target: 'content',
-					options: [
-
-						{text: ' Чекбокс 1', checked: 0, disabled: 0, name: 'checkbox'},
-						{text: ' Чекбокс 2', checked: 1, disabled: 0, name: 'checkbox'},
-						{text: ' Чекбокс 3', checked: 0, disabled: 1, name: 'checkbox'}
-
-					],
-					standard_css: 1,
-					on_change: function(event) {
-						console.log('Чекбокс был переключён');
-					}
-				});
-
-
-
--------------------------------------*/
-function create_checkbox_block(config) {
-
-	// 1. Если config не передан, задать конф. объект по умолчанию
-	if(!config) config =
-
-		{
-			target: document.body,
-			options:	[{text: ' Чекбокс 1', checked: 0, disabled: 0, name: 'checkbox'},
-								 {text: ' Чекбокс 2', checked: 1, disabled: 0, name: 'checkbox'},
-								 {text: ' Чекбокс 3', checked: 0, disabled: 1, name: 'checkbox'}]
-		};
-		if(!config.target) config.target = document.body;
-		if(!config.options) config.options = [{text: ' Чекбокс 1', checked: 0, disabled: 0, name: 'checkbox'},
-																			 	  {text: ' Чекбокс 2', checked: 1, disabled: 0, name: 'checkbox'},
-																				  {text: ' Чекбокс 3', checked: 0, disabled: 1, name: 'checkbox'}];
-
-	// 2. Сгенерировать HTML-структуру
-
-		// Сгенерировать элемент form
-		var form = document.createElement('form');
-
-		// Установить стандартный CSS для form
-		if(config.standard_css) form.style.cssText = (function () {/*
-
-				user-select: none;
-
-			*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-		// Сгенерировать элементы input type='checkbox' внутри form
-		var checkboxes = [];
-
-		for(var i=0; i<config.options.length; i++) {
-
-			// Создать элемент <label></label> и вставить его в form
-			var label = document.createElement('label');
-			form.appendChild(label);
-
-			// Создать элемент <input type='checkbox'></input> и вставить его в label
-			var checkbox = document.createElement('input');
-			checkbox.type = 'checkbox';
-			label.appendChild(checkbox);
-			checkboxes.push(checkbox);
-
-			// Создать пустой текстовый узел, и вставить в label после input'а.
-			var textNode = document.createTextNode('');
-			label.appendChild(textNode);
-
-			// Установить стандартный CSS, если так было задано в конфиге
-
-				// Для label
-				if(config.standard_css) label.style.cssText = (function () {/*
-
-						display: block;
-						text-align: left;
-						cursor: pointer;
-						margin: 5px 10px 0 10px;
-						user-select: none;
-
-					*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-				// Для input
-				if(config.standard_css) checkbox.style.cssText = (function () {/*
-
-						user-select: none;
-
-					*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-		}
-
-	// 3. Применить к созданной структуре переданные в конфиге параметры
-
-		// formId
-
-			// Если ID был передан в конфиге, присвоить его элементу
-			if(config.formId) form.id = config.formId;
-
-			// В противном случае сгенерировать и добавить уникальный id
-			else {
-				for(var i=0; i<1000; i++) {
-					if(!document.getElementById('form_'+i)) {
-						config.formId = 'form_'+i;
-						form.id = config.formId;
-						break;
-					}
-				}
-			}
-
-		// formName
-		if(config.formName) form.name = config.formName;
-
-		// text, checked, disabled, name для элементов checkbox
-		for(var i=0; i<config.options.length; i++) {
-
-			// text
-			if(config.options[i].text) checkboxes[i].nextSibling.nodeValue = config.options[i].text;
-
-			// checked
-			if(config.options[i].checked) checkboxes[i].checked = config.options[i].checked;
-
-			// disabled
-			if(config.options[i].disabled) checkboxes[i].disabled = config.options[i].disabled;
-
-			// name
-			if(config.options[i].name) checkboxes[i].name = config.options[i].name;
-
-		}
-
-
-	// 4. Если config.on_change передана, то отработать её.
-	if(config.on_change) {
-
-		// Добавить функцию config.on_blur, как обработчик события blur
-		addEvent(form, 'change', config.on_change);
-
-	}
-
-	// 5. Вставить созданный элемент в конец эл-та с id = target
-
-		// Получить ссылку на элемент target
-		var target = document.getElementById(config.target);
-
-		// Если target пуст, завершить работу
-		if(!target) {
-			console.log('Скрипт getFormElem. Target не найден. Завершаю.');
-			return 0;
-		}
-
-		// Добавить input в target
-		target.appendChild(form);
-
-	// 6. Вернуть config.target
-	return config.target;
-
-}
-
-
-/*-------------------------------------
-| > create_radio_block
-|--------------------------------------
-| Функция конструирует из конфига и возвращает блок радиобуттонов
-
-
-	Аргументы:
-		- config		| конфигурационный объект
-
-	Возвращает:
-		- ID созданного блока div, содержащего набор радио-кнопок в случае успеха
-		- 0 в случае неудачи.
-
-	Как работает
-		- Генерирует div, а внутри него набор input type='radio'
-		- Вставляет сгенерированный div с содержимым в указанный элемент
-		- Возвращает ID созданного div-а.
-
-	Конфигурационный объект
-
-			{
-				formId: [string text],          | 	| id формы с радио-кнопками
-				formName: [string]							|		| имя формы с радио-кнопками
-				target: [id целевого эл-та]			|   | куда вставить эл-т
-				options: 	[{										|   | массив объектов с парами value/text
-					text: [строка],								|		| подпись справа от радио-кнопки
-					checked: [1/0],								|		| выбрана ли радио-кнопка по умолчанию. или нет
-					disabled: [1/0],							|		| отключена ли радио-кнопка (нельзя выбрать), или нет
-					name: [string]								|		| имя радио-кнопки
-									}, ...]
-				standard_css: [string],					|		| установить ли стандартный CSS элементам label
-				on_change: [колбэк]							|   | колбэк-функция, срабатывающая при изменении значения элемента
-			}
-
-	Конфигурационный объект "по умолчанию"
-
-			{
-				target: Main.body,
-				options:	[{text: ' Радио 1', checked: 0, disabled: 0, name: 'checkbox'},
-									 {text: ' Радио 2', checked: 1, disabled: 0, name: 'checkbox'},
-									 {text: ' Радио 3', checked: 0, disabled: 1, name: 'checkbox'}]
-			}
-
-	Шаблон HTML-структуры
-
-		<form id='[config.formId]' name='[config.formName]'>
-			<label>
-				<input type='radio' name='[config.options[i].name]' [config.options[i].checked] [config.options[i].disabled]></input>
-				[config.options[i].text]
-			</label
-			...
-		</form>
-
-	Примечания
-
-		> Что будет, если не указывать formId
-			- Будет автоматически сгенерирован уникальный ID.
-
-		> Для чего радио-кнопки помещаются в тэг form, и как делать перебор по радио-кнопкам
-			- Все эл-ты input type='radio' помещаются в эл-т form с атрибутом name='[config.formName]'
-			- Внутри формы каждой радио-кнопке присваивается атрибут name='[config.options[i].name]'
-			- Внутри одной формы может быть N групп радио-кнопок, имеющих одинаковое значение name.
-			- Допустим, у нас внутри form id='ff' name='f1' есть группа радио-кнопок с name='n1'. Как их перебрать?
-
-				- Вариант 1: получить ссылку на форму через её id
-
-						var form = Main.getElementById('ff);
-						for(var i=0; i<form.n1.length; i++) {
-
-							if(form.n1.checked) console.log('Чекбокс '+form.n1.value+' включён!');
-
-						}
-
-				- Вариант 2: получить ссылку на форму через её name
-
-						for(var i=0; i<ff.n1.length; i++) {
-
-							if(ff.n1.checked) console.log('Чекбокс '+ff.n1.value+' включён!');
-
-						}
-
-
-	Примеры использования
-
-		- В полной комплектации:
-
-				create_radio_block({
-					formId: 'myRadio',
-					target: 'content',
-					options: [
-
-						{text: ' Радио 1', checked: 0, disabled: 0, name: 'radiobutton'},
-						{text: ' Радио 2', checked: 1, disabled: 0, name: 'radiobutton'},
-						{text: ' Радио 3', checked: 0, disabled: 1, name: 'radiobutton'}
-
-					],
-					standard_css: 1,
-					on_change: function(event) {
-						console.log('Радио-кнопка была переключена');
-					}
-				});
-
-
-
--------------------------------------*/
-function create_radio_block(config) {
-
-	// 1. Если config не передан, задать конф. объект по умолчанию
-	if(!config) config =
-
-		{
-			target: document.body,
-			options:	[{text: ' Радио 1', checked: 0, disabled: 0, name: 'radiobutton'},
-								 {text: ' Радио 2', checked: 1, disabled: 0, name: 'radiobutton'},
-								 {text: ' Радио 3', checked: 0, disabled: 1, name: 'radiobutton'}]
-		};
-		if(!config.target) config.target = document.body;
-		if(!config.options) config.options = [{text: ' Радио 1', checked: 0, disabled: 0, name: 'radiobutton'},
-																			 	  {text: ' Радио 2', checked: 1, disabled: 0, name: 'radiobutton'},
-																				  {text: ' Радио 3', checked: 0, disabled: 1, name: 'radiobutton'}];
-
-	// 2. Сгенерировать HTML-структуру
-
-		// Сгенерировать элемент form
-		var form = document.createElement('form');
-
-		// Установить стандартный CSS для form
-		if(config.standard_css) form.style.cssText = (function () {/*
-
-				user-select: none;
-
-			*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-		// Сгенерировать элементы input type='radio' внутри form
-		var radiobuttons = [];
-
-		for(var i=0; i<config.options.length; i++) {
-
-			// Создать элемент <label></label> и вставить его в form
-			var label = document.createElement('label');
-			form.appendChild(label);
-
-			// Создать элемент <input type='radio'></input> и вставить его в label
-			var radio = document.createElement('input');
-			radio.type = 'radio';
-			label.appendChild(radio);
-			radiobuttons.push(radio);
-
-			// Создать пустой текстовый узел, и вставить в label после input'а.
-			var textNode = document.createTextNode('');
-			label.appendChild(textNode);
-
-			// Установить стандартный CSS, если так было задано в конфиге
-
-				// Для label
-				if(config.standard_css) label.style.cssText = (function () {/*
-
-						display: block;
-						text-align: left;
-						cursor: pointer;
-						margin: 5px 10px 0 10px;
-						user-select: none;
-
-					*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-				// Для input
-				if(config.standard_css) radio.style.cssText = (function () {/*
-
-						user-select: none;
-
-					*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-		}
-
-	// 3. Применить к созданной структуре переданные в конфиге параметры
-
-		// formId
-
-			// Если ID был передан в конфиге, присвоить его элементу
-			if(config.formId) form.id = config.formId;
-
-			// В противном случае сгенерировать и добавить уникальный id
-			else {
-				for(var i=0; i<1000; i++) {
-					if(!document.getElementById('form_'+i)) {
-						config.formId = 'form_'+i;
-						form.id = config.formId;
-						break;
-					}
-				}
-			}
-
-		// formName
-		if(config.formName) form.name = config.formName;
-
-		// text, checked, disabled, name для элементов radio
-		for(var i=0; i<config.options.length; i++) {
-
-			// text
-			if(config.options[i].text) radiobuttons[i].nextSibling.nodeValue = config.options[i].text;
-
-			// checked
-			if(config.options[i].checked) radiobuttons[i].checked = config.options[i].checked;
-
-			// disabled
-			if(config.options[i].disabled) radiobuttons[i].disabled = config.options[i].disabled;
-
-			// name
-			if(config.options[i].name) radiobuttons[i].name = config.options[i].name;
-
-		}
-
-
-	// 4. Если config.on_change передана, то отработать её.
-	if(config.on_change) {
-
-		// Добавить функцию config.on_blur, как обработчик события blur
-		addEvent(form, 'change', config.on_change);
-
-	}
-
-	// 5. Вставить созданный элемент в конец эл-та с id = target
-
-		// Получить ссылку на элемент target
-		var target = document.getElementById(config.target);
-
-		// Если target пуст, завершить работу
-		if(!target) {
-			console.log('Скрипт getFormElem. Target не найден. Завершаю.');
-			return 0;
-		}
-
-		// Добавить input в target
-		target.appendChild(form);
-
-	// 6. Вернуть config.target
-	return config.target;
-
-}
-
-
-
-
-
-/*-------------------------------------
-| > get_form_data
-|--------------------------------------
-| Опрашивает эл-ты формы с указанными ID, и возвращает объект с результатами
-
-	Аргументы:
-		- config
-
-	Возвращает:
-		- Объект с результатами вот такого вида.
-
-			{
-				[id элемента]: 	{
-													type: [тип элемента],
-													value: [значение элемента],
-													isvalid: [true/false]
-												}
-			}
-
-		- Если type == 'checkbox_block', то возвращает массив значений true/false
-			- True означает, что соответствующий флажок включён.
-			- False - что выключен.
-			- Нумерация в массиве в порядке появления эл-тов checkbox эл-те form в DOM.
-		- Или 0, если ничего не найдено.
-
-	Конфигурационный объект:
-
-		{
-			types: [массив],							|		| перечислить типы эл-тов для опроса: text/textarea/select/checkbox_block/radiobutton_block
-			ids: [массив],								|   | ищет эл-ты с указанными в массиве ID
-			ids_match: [рег.выр.],				|   | ищет эл-ты с ID, совпадающим с этим рег.выр.
-			autovalidate: [1/0]						|   | для 'text' и 'textarea', если валидация включена, будет автоматом писать сообщ. об ошибке
-		}
-
-	Конфигурационный объект по умолчанию:
-		- Если конфиг не передан, то поиск происходит по всем объектам.
-		- Функция перебирает все эл-ты DOM в поисках эл-то внужного типа.
-		- Она ищет элементы input type='text' и textarea.
-
-	Особенности
-
-		> Что, если параметр types не указан?
-			- Тогда считается, что указаны все возможные элементы.
-			- А именно: text/textarea/select/checkbox_block/radio_block
-
-		> Что, если конфиг вообще не передан?
-			- Происходит поиск по всему DOM по всем доступным типам объектов (см. выше).
-
-		> Как работает autovalidate
-			- Он работает только для элементов 'text' и 'textarea'.
-			- И только для тех элементов, для которых валидация включена.
-			- Для найденных эл-то, соответствующих вышеуказанным требованиям, ф-ия проверяет:
-				- Присутствует ли у эл-та класс 'elem_is_invalid'.
-
-				1. Если да
-					- Cмотрит, есть ли дочек родителя элемента эл-т div с классом 'mw_error'. Если да - удаляет.
-					- Извлекает из атрибута 'data-invalidtext' текстовое значение txt.
-					- И создаёт сразу после элемента вот такую структуру.
-
-						<div class='mw_error'>[сообщение об ошибке]</div>
-
-				2. Если нет
-					- То ф-ия смотрит, есть ли дочек родителя элемента эл-т div с классом 'mw_error'.
-					- Если есть, то удаляет его.
-
-	Примеры использования
-
-		- Получить данные из эл-тов указанных типов, id которых содержит 'my'
-
-				get_form_data({
-					types: ['textarea', 'text', 'select', 'checkbox_block', 'radio_block'],
-					ids_match: new RegExp('my', 'mi')
-				});
-
-		- Получить данные всех предусмотренных функцией элементов
-
-				get_form_data();
-
-		- Получить данные всех предусмотренных функцией элементов, имеющих указанные ID
-
-				get_form_data({
-					ids: ['someID', 'anotherID]
-				});
-
-
--------------------------------------*/
-function get_form_data(config) {
-
-	// 1. Проверить, передан ли конфигурационный объект
-	var is_config = 0;
-	if(config) is_config = 1;
-
-	// 2. Собрать в массив все интересующие нас элементы
-
-		// 2.1. Подготовить массив для результатов
-		var elems = [];
-
-		// 2.2. Если конфиг не передан, то проводим поиск по всем эл-там DOM.
-		// - Ищем эл-ты input type='text' и textarea, у которых есть ID.
-		if(!is_config) {
-
-			// text
-
-				// Ищем все эл-ты input type='text', у которых есть атрибут id
-				// - Найденные добавляем в elems
-				(function(){
-					var inputs = document.getElementsByTagName('input');
-					for(var i=0; i<inputs.length; i++) {
-						if(inputs[i].getAttribute('type') == 'text' && inputs[i].getAttribute('id')) elems.push(inputs[i]);
-					}
-				})();
-
-			// textarea
-
-				// Ищем все эл-ты textarea, у которых есть атрибут id
-				// - Найденные добавляем в elems
-				(function(){
-					var textareas = document.getElementsByTagName('textarea');
-					for(var i=0; i<textareas.length; i++) {
-						if(textareas[i].getAttribute('id')) elems.push(textareas[i]);
-					}
-				})();
-
-			// select
-
-				// Ищем все элементы select, у которых есть атрибут id
-				// - Найденные добавляем в elems
-				(function(){
-					var selects = document.getElementsByTagName('select');
-					for(var i=0; i<selects.length; i++) {
-						if(selects[i].getAttribute('id')) elems.push(selects[i]);
-					}
-				})();
-
-			// checkbox_block
-
-				// Ищем все элементы form, у который под-потомок - input type='checkbox'
-				// - Найденные добавляем в elems
-				(function(){
-					var forms = document.getElementsByTagName('form');
-					for(var i=0; i<forms.length; i++) {
-						if(forms[i].getAttribute('id') &&
-							 forms[i].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-							 forms[i].firstElementChild.firstElementChild.type == 'checkbox') elems.push(forms[i]);
-					}
-				})();
-
-			// radio_block
-
-				// Ищем все элементы form, у который под-потомок - input type='radio'
-				// - Найденные добавляем в elems
-				(function(){
-					var forms = document.getElementsByTagName('form');
-					for(var i=0; i<forms.length; i++) {
-						if(forms[i].getAttribute('id') &&
-							 forms[i].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-							 forms[i].firstElementChild.firstElementChild.type == 'radio') elems.push(forms[i]);
-					}
-				})();
-
-		}
-
-		// 2.3. Если конфиг передан:
-		if(is_config) {
-
-			// 2.3.1. Если config.ids не пуст:
-			// - Ищем элементы с id из массива config.ids
-			(function(){
-				if(config.ids) {
-					for(var i=0; i<config.ids.length; i++) {
-
-						// Получить элемент с id == config.ids[i]
-						var e = document.getElementById(config.ids[i]);
-
-						// Если config.types не пуст, то если тип e есть в config.types, добавляем e в elems
-						if(config.types) {
-
-							for(var j=0; j<config.types.length; j++) {
-
-								// text
-								if(config.types[j] == 'text') {
-									if(e.tagName == 'INPUT' && e.type == 'text') { elems.push(e); break; }
-								}
-
-								// textarea
-								if(config.types[j] == 'textarea') {
-									if(e.tagName == 'TEXTAREA') { elems.push(e); break; }
-								}
-
-								// select
-								if(config.types[j] == 'select') {
-									if(e.tagName == 'SELECT') { elems.push(e); break; }
-								}
-
-								// checkbox_block
-								if(config.types[j] == 'checkbox_block') {
-									if(e.tagName == 'FORM' &&
-										 e.firstElementChild.firstElementChild.tagName == 'INPUT' &&
-										 e.firstElementChild.firstElementChild.type == 'checkbox')
-									{
-										elems.push(e); break;
-									}
-								}
-
-								// radio_block
-								if(config.types[j] == 'radio_block') {
-									if(e.tagName == 'FORM' &&
-										 e.firstElementChild.firstElementChild.tagName == 'INPUT' &&
-										 e.firstElementChild.firstElementChild.type == 'radio')
-									{
-										elems.push(e); break;
-									}
-								}
-
-							}
-
-						}
-
-						// Если config.types пуст, то просто добавляем все найденные элементы в elems
-						else {
-							if(e) elems.push(e);
-						}
-
-					}
-				}
-			})();
-
-			// 2.3.2. Если config.ids_match не пуст:
-			// - Ищем все элементы, у которых ID матчится с config.ids_match
-			// - Добавляем их во временное хранилище elems_temp
-			if(config.ids_match) {
-
-				// Создать временное хранилище elems_temp
-				var elems_temp = [];
-
-				// Заполнить elems_temp
-
-					// text
-					(function(){
-						var inputs = document.getElementsByTagName('input');
-						for(var i=0; i<inputs.length; i++) {
-							if(inputs[i].getAttribute('type') == 'text' &&
-							inputs[i].getAttribute('id') &&
-							config.ids_match.test(inputs[i].getAttribute('id')))
-
-								elems_temp.push(inputs[i]);
-
-
-						}
-					})();
-
-					// textarea
-					(function(){
-						var textareas = document.getElementsByTagName('textarea');
-						for(var i=0; i<textareas.length; i++) {
-							if(textareas[i].getAttribute('id') &&
-								config.ids_match.test(textareas[i].getAttribute('id')))
-
-								elems_temp.push(textareas[i]);
-
-						}
-					})();
-
-					// select
-					(function(){
-						var selects = document.getElementsByTagName('select');
-						for(var i=0; i<selects.length; i++) {
-							if( selects[i].getAttribute('id') &&
-							    config.ids_match.test(selects[i].getAttribute('id')))
-
-								elems_temp.push(selects[i]);
-
-						}
-					})();
-
-					// checkbox_block / radio_block
-					(function(){
-						var forms = document.getElementsByTagName('form');
-						for(var i=0; i<forms.length; i++) {
-
-							// checkbox_block
-							if( forms[i].getAttribute('id') &&
-							    config.ids_match.test(forms[i].getAttribute('id')) &&
-									forms[i].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-									forms[i].firstElementChild.firstElementChild.type == 'checkbox') elems_temp.push(forms[i]);
-
-							// radio_block
-							if( forms[i].getAttribute('id') &&
-							    config.ids_match.test(forms[i].getAttribute('id')) &&
-									forms[i].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-									forms[i].firstElementChild.firstElementChild.type == 'radio') elems_temp.push(forms[i]);
-
-						}
-					})();
-
-				// Если config.types не пуст, то добавить из elems_temp в elems тольк те эл-ты:
-				// - типы которых присутствуют в config.types
-				if(config.types) {
-					for(var k=0; k<elems_temp.length; k++) {
-						for(var j=0; j<config.types.length; j++) {
-
-							// text
-							if(config.types[j] == 'text') {
-								if(elems_temp[k].tagName == 'INPUT' && elems_temp[k].type == 'text') { elems.push(elems_temp[k]); break; }
-							}
-
-							// textarea
-							if(config.types[j] == 'textarea') {
-								if(elems_temp[k].tagName == 'TEXTAREA') { elems.push(elems_temp[k]); break; }
-							}
-
-							// select
-							if(config.types[j] == 'select') {
-								if(elems_temp[k].tagName == 'SELECT') { elems.push(elems_temp[k]); break; }
-							}
-
-							// checkbox_block
-							if(config.types[j] == 'checkbox_block') {
-								if(elems_temp[k].tagName == 'FORM' &&
-									 elems_temp[k].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-									 elems_temp[k].firstElementChild.firstElementChild.type == 'checkbox')
-								{
-									elems.push(elems_temp[k]); break;
-								}
-							}
-
-							// radio_block
-							if(config.types[j] == 'radio_block') {
-								if(elems_temp[k].tagName == 'FORM' &&
-									 elems_temp[k].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-									 elems_temp[k].firstElementChild.firstElementChild.type == 'radio')
-								{
-									elems.push(elems_temp[k]); break;
-								}
-							}
-
-						}
-					}
-				}
-
-				// Если config.types пуст, то просто добавить все эл-ты из elems_temp в elems
-				else {
-					for(var k=0; k<elems_temp.length; k++) elems.push(elems_temp[k]);
-				}
-
-			}
-
-		}
-
-		// 2.4. Если ничего не найдено, вернуть 0.
-		if(elems.length == 0) {
-			console.log('Функция get_form_data. Ничего не найдено');
-			return 0;
-		}
-
-
-	// 3. Сформировать результирующий объект
-
-		// Подготовить переменные
-		var result = {};
-		var id = 0;
-		var isvalid = 1;	// если хоть 1 элемент не валиден, флаг должен быть == 0
-
-		// Сформировать результирующий объект
-		for(var i=0; i<elems.length; i++) {
-
-			id = elems[i].getAttribute('id');
-			result[id] = {};
-
-			// Если elems[i] - это input type='text'
-			if(elems[i].tagName == 'INPUT' && elems[i].getAttribute('type') == 'text') {
-
-				// Наполнить объект result[id] данными об элементе id
-				result[id].type = 'text';
-				result[id].value = elems[i].value;
-				result[id].isvalid = !checkClass('', 'elem_is_invalid', elems[i]);
-				result[id].invalidtext = elems[i].getAttribute('data-invalidtext');
-
-				// Если config.autovalidate не пусто, то провести валидацию:
-				if(config.autovalidate) {
-
-					// Если содержимое элемента не валидно, добавить под него текст об ошибке
-					if(!result[id].isvalid) {
-
-						// Удалить старый div с текстом об ошибке
-						var div = elems[i].parentNode.getElementsByClassName('mw_error')[0];
-						if(div) div.parentNode.removeChild(div);
-
-						// Подготовить эл-т div с текстом об ошибке
-						div = document.createElement('div');
-						addClass(div, 'mw_error');
-						div.innerHTML = elems[i].getAttribute('data-invalidtext');
-
-						// Вставить подготовленный div после elems[i]
-						insertAfter(div, elems[i]);
-
-					}
-
-					// Если содержимое элемента валидно, убрать из под него текст об ошибке
-					else {
-
-						var div = elems[i].parentNode.getElementsByClassName('mw_error')[0];
-						if(div) div.parentNode.removeChild(div);
-
-					}
-				} // конец проведения валидации
-
-				// Если элемент не валиден, сделать isvalid == 0
-				if(!result[id].isvalid) isvalid = 0;
-
-			}
-
-			// Если elems[i] - это textarea
-			if(elems[i].tagName == 'TEXTAREA') {
-
-				// Наполнить объект result[id] данными об элементе id
-				result[id].type = 'textarea';
-				result[id].value = elems[i].value;
-				result[id].isvalid = !checkClass('', 'elem_is_invalid', elems[i]);
-				result[id].invalidtext = elems[i].getAttribute('data-invalidtext');
-
-				// Если config.autovalidate не пусто, то провести валидацию:
-				if(config.autovalidate) {
-
-					// Если содержимое элемента не валидно, добавить под него текст об ошибке
-					if(!result[id].isvalid) {
-
-						// Удалить старый div с текстом об ошибке
-						var div = elems[i].parentNode.getElementsByClassName('mw_error')[0];
-						if(div) div.parentNode.removeChild(div);
-
-						// Подготовить новый эл-т div с текстом об ошибке
-						div = document.createElement('div');
-						addClass(div, 'mw_error');
-						div.innerHTML = elems[i].getAttribute('data-invalidtext');
-
-						// Вставить подготовленный div после elems[i]
-						insertAfter(div, elems[i]);
-
-					}
-
-					// Если содержимое элемента валидно, убрать из под него текст об ошибке
-					else {
-
-						var div = elems[i].parentNode.getElementsByClassName('mw_error')[0];
-						if(div) div.parentNode.removeChild(div);
-
-					}
-				} // конец проведения валидации
-
-				// Если элемент не валиден, сделать isvalid == 0
-				if(!result[id].isvalid) isvalid = 0;
-
-			}
-
-			// Если elems[i] - это select
-			if(elems[i].tagName == 'SELECT') {
-				result[id].type = 'select';
-				result[id].value = elems[i].value;
-			}
-
-
-			// Если elems[i] - это checkbox_block
-			if(elems[i].tagName == 'FORM' &&
-				 elems[i].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-				 elems[i].firstElementChild.firstElementChild.type == 'checkbox') {
-
-					// type
-					result[id].type = 'checkbox_block';
-
-					// value
-					var name = elems[i].firstElementChild.firstElementChild.name;
-					var values = [];
-					for(var z=0; z<elems[i][name].length; z++) values.push(elems[i][name][z].checked);
-					result[id].value = values;
-
-			}
-
-			// Если elems[i] - это radio_block
-			if(elems[i].tagName == 'FORM' &&
-				 elems[i].firstElementChild.firstElementChild.tagName == 'INPUT' &&
-				 elems[i].firstElementChild.firstElementChild.type == 'radio') {
-
-					// type
-					result[id].type = 'radio_block';
-
-					// value
-					var name = elems[i].firstElementChild.firstElementChild.name;
-					for(var z=0; z<elems[i][name].length; z++) {
-						if(elems[i][name][z].checked) result[id].value = elems[i][name][z].nextSibling.nodeValue;
-					}
-
-			}
-
-		}
-
-	// 4. Добавить в результирующий объект св-во isvalid
-	//    - Которое обозначает, есть ли хоть 1 не валидный объект в результатах
-	result.isvalid = isvalid;
-
-	// 4. Вернуть результирующий объект
-	return result;
-
+//----------------//
+// > deleteCookie //
+//----------------//
+// - Удалить куку
+function deleteCookie(name) {
+  setCookie(name, "", {
+    expires: -1
+  })
 }
 
 
@@ -3723,198 +2031,6 @@ function validatePassword(str) {
 	return re.test(str);
 }
 
-
-
-/*-------------------------------------
-| > notify
-|--------------------------------------
-| На N секунд показывает в верхней части экрана плашку с заданной инфой
-
-	Аргументы
-		- config		| конфигурационный объект
-
-	Возвращает
-		- id созданного элемента
-
-	Конфигурационный объект
-
-		{
-		 	msg,			| *	| html или строка с сообщением, которое надо показывать
-		 	time,			| 	| кол-во секунд, в течение которых надо показывать плашку
-		 	target,		| 	|	dom-элемент, которому будет принадлежать dom-элемент-плашка
-			width,		|  	| ширина плашки px
-			height,		| 	| высота плашки px
-			loading,	|		| url анимированной gif-картинки, демонстрирующей, что идёт загрузка
-			color,		|		| цвет плашки, если не задан, то идёт стандартный серый
-			fontcolor,|		| цвет текста
-			speed,		|		| скорость раскрытия/закрытия плашки
-			only			|		| закрывать ли все предыдущие подсказки при появлении новой? (0 | 1)
-		}
-
-	Пример использования
-
-		var notid = notify({
-				msg: 'Загрузка...',
-				time: '7',
-				height: '50px',
-				speed: '.3',
-				only: 1
-			});
-
--------------------------------------*/
-
-function notify(config) {
-
-	// 1. Если config не передан, задать конф. объект по умолчанию
-	if(!config) config = {};
-	if(!config.msg) return 0;
-	if(!config.time) config.time = 5;
-	if(!config.target) config.target = document.body;
-	if(!config.width) config.width = '';
-	if(!config.height) config.height = 50;
-	if(!config.loading) config.loading = '';
-	if(!config.color) config.color = '#eee';
-	if(!config.fontcolor) config.fontcolor = '#000';
-	if(!config.speed) config.speed = '.3';
-	if(!config.only) config.only = 1;
-
-		// 1.1. Удалить все предыдущие 50 подсказок, если config.only == 1
-		if(config.only == 1) {
-			for(var i=0; i<50; i++){
-				var id = 'notyplate_perspective_'+i;
-				var e = document.getElementById(id);
-				if(e) e.parentNode.removeChild(e);
-			}
-		}
-
-	// 2. Сгенерировать HTML-структуру плашки
-	var perspective = document.createElement('div');
-	var main = document.createElement('div');	perspective.appendChild(main);
-
-	// 3. Назначить элементам css-классы
-	perspective.className = 'notyplate_perspective_css';
-	main.className = 'notyplate_main_css';
-
-	// 4. Назначить элементу perspective id
-	var num = 0;
-	var id = '';
-	for(var i=0; i<1000; i){
-		id = 'notyplate_perspective_'+num;
-		if(document.getElementById(id)) { num++; continue; }
-		break;
-	}
-	perspective.id = id;
-
-	// 5. Добавить внутрь плашки переданный текст
-	main.innerHTML = config.msg;
-
-	// 6. Задать элементам плашки стандартные css-стили (в соотв. с параметрами)
-
-		// 6.1. Стили для perspective
-		perspective.style.cssText = (function () {/*
-
-			-webkit-perspective: 500px;
-			perspective: 500px;
-
-			position: fixed;
-			width: 100%;
-			top: -5px;
-			text-align: center;
-			height: 1px;
-			z-index: 1000;
-
-		*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-
-		// 6.2. Стили для main
-		main.style.cssText = (function () {/*
-
-			display: inline-block;
-
-			height: 30px;
-			background-color: #eee;
-			line-height: 30px;
-			padding: 10px 20px;
-			text-align: center;
-			box-shadow: 0 1px 1px rgba(0,0,0,.2);
-			border: 1px solid #777;
-			border-radius: 0 0 5px 5px;
-
-			-webkit-transition: all .5s ease-in-out;
-				 -moz-transition: all .5s ease-in-out;
-					 -o-transition: all .5s ease-in-out;
-							transition: all .5s ease-in-out;
-
-			-webkit-transform-origin: 50% 0%;
-				 -moz-transform-origin: 50% 0%;
-					-ms-transform-origin: 50% 0%;
-					 -o-transform-origin: 50% 0%;
-							transform-origin: 50% 0%;
-
-			-webkit-transform: rotateX(-90deg);
-				 -moz-transform: rotateX(-90deg);
-					-ms-transform: rotateX(-90deg);
-					 -o-transform: rotateX(-90deg);
-							transform: rotateX(-90deg);
-
-			opacity: .5;
-
-		*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
-		if(config.width) main.style.width 						= config.width + 'px';
-		main.style.height 					= config.height + 'px';
-		main.style.backgroundColor 	= config.color;
-		main.style.color 						= config.fontcolor;
-
-		main.style.transitionDuration = config.speed+'s';
-		main.style.webkitTransitionDuration = config.speed+'s';
-		main.style.MozTransitionDuration = config.speed+'s';
-		main.style.OTransitionDuration = config.speed+'s';
-		main.style.msTransitionDuration = config.speed+'s';
-
-	// 7. Добавить созданную структуру в target
-	config.target.appendChild(perspective);
-
-	// 8.	Повернуть созданную структуру по оси X, установив угол на 0 градусов
-	// - И сделать opacity 100
-	// - Сделать это через 2 секунды, дав браузеру время на обработку
-	setTimeout(function(main){
-
-		main.style.opacity = '1';
-
-		main.style.webkitTransform = 'rotateX(0deg)';
-		main.style.MozTransform = 'rotateX(0deg)';
-		main.style.msTransform = 'rotateX(0deg)';
-		main.style.OTransform = 'rotateX(0deg)';
-		main.style.transform = 'rotateX(0deg)';
-
-	}, 100, main);
-
-	// 9. Убрать плашку через time секунд
-	setTimeout(function(id, main, perspective, speed){
-
-		// 1) Скроем в 3d-стиле плашку с инфой
-		// - И сделать opacity == 0
-		main.style.opacity = '0';
-
-		main.style.webkitTransform = 'rotateX(-90deg)';
-		main.style.MozTransform = 'rotateX(-90deg)';
-		main.style.msTransform = 'rotateX(-90deg)';
-		main.style.OTransform = 'rotateX(-90deg)';
-		main.style.transform = 'rotateX(-90deg)';
-
-		// 2) Удалим dom-элемент плашки (с id) через speed секунд
-		setTimeout(function(perspective){
-
-			if(perspective.parentNode)
-				perspective.parentNode.removeChild(perspective);
-
-		}, speed*1000, perspective);
-
-	}, +config.time*1000, id, main, perspective, config.speed);
-
-	// 10. Вернуть id элемента perspective
-	return id;
-
-}
 
 
 /*-------------------------------------
@@ -4585,63 +2701,6 @@ function setInpCursorPos(input, pos, _this){
 		range.select();
 	}
 
-}
-
-
-//-------------//
-// > getCookie //
-//-------------//
-// - Извлечь куку по имени из Main.cookie
-function getCookie(name) {
-  var matches = document.cookie.match(new RegExp(
-    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-
-//-------------//
-// > setCookie //
-//-------------//
-// - Записать куку
-function setCookie(name, value, options) {
-  options = options || {};
-
-  var expires = options.expires;
-
-  if (typeof expires == "number" && expires) {
-    var d = new Date();
-    d.setTime(d.getTime() + expires * 1000);
-    expires = options.expires = d;
-  }
-  if (expires && expires.toUTCString) {
-    options.expires = expires.toUTCString();
-  }
-
-  value = encodeURIComponent(value);
-
-  var updatedCookie = name + "=" + value;
-
-  for (var propName in options) {
-    updatedCookie += "; " + propName;
-    var propValue = options[propName];
-    if (propValue !== true) {
-      updatedCookie += "=" + propValue;
-    }
-  }
-
-  document.cookie = updatedCookie;
-}
-
-
-//----------------//
-// > deleteCookie //
-//----------------//
-// - Удалить куку
-function deleteCookie(name) {
-  setCookie(name, "", {
-    expires: -1
-  })
 }
 
 
