@@ -4,5 +4,9 @@
   "main"  : ["library.js"],
   "repository": {
     "type": "git", "url": "git://github.com/4gekkman/4gekkman-bower-jslib1.git"
-  }
+  },
+  "ignore": [
+    "readme.md",
+    "composer.json"
+  ]
 }
