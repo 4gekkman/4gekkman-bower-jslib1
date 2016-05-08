@@ -1073,7 +1073,7 @@ function notify(config) {
 			top: -5px;
 			text-align: center;
 			height: 1px;
-			z-index: 1000;
+			z-index: 100000000000000000;
 
 		*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
 
@@ -1502,7 +1502,7 @@ function makeJSON(pairs) {
 // 		});
 //
 //
-f.s0.ajaxko = function ajaxko(config, data, event) {
+function ajaxko(self, config) {
 
 	// 1] Назначить конфигу значения по умолчанию
 
@@ -1600,6 +1600,10 @@ f.s0.ajaxko = function ajaxko(config, data, event) {
 			if(!config.url || (test = {}).toString.call(config.url).slice(8,-1) != "String")
 				config.url = window.location.href;
 
+			// 1.2.22] data & event
+			var data = self;
+			var event = self;
+
 
 	// 2] Если и command, и key пусты, завершить
 	if(!config.command && !config.key) {
@@ -1611,9 +1615,9 @@ f.s0.ajaxko = function ajaxko(config, data, event) {
 	// 3] Завершить, если функция вызвана не действием пользователя
 	// - И не определёнными программами.
 	// - А программно, прочими программами.
-	if(event)
-		if(!event.originalEvent && config.from_ex.indexOf(config.from) == -1)
-			return;
+	// if(event)
+	// 	 if(!event.originalEvent && config.from_ex.indexOf(config.from) == -1)
+	// 		 return;
 
 
 	// 4] Применить "механизм отложенного сохранения для текстовых полей"
@@ -1636,7 +1640,7 @@ f.s0.ajaxko = function ajaxko(config, data, event) {
 
 
 	// 7] Заблокировать закрытие документа, сделав пометку о наличии не сохранённых данных
-	f.s0.txt_delay_save.block();
+	self.f.s0.txt_delay_save.block();
 
 
 	// 8] Изменить на +1 счётчик ожидающих ответов ajax-запросов
@@ -1681,7 +1685,7 @@ f.s0.ajaxko = function ajaxko(config, data, event) {
 			// 10.5] Разблокировать закрытие документа, убрав пометку о наличии не сохранённых данных
 			// - Но только, если m.s0.ajax_counter == 0
 			if(self.m.s0.ajax_counter() == 0)
-				f.s0.txt_delay_save.unblock();
+				self.f.s0.txt_delay_save.unblock();
 
 			// 10.6] Если data.status == 0
 			if(data.status == 0) {
@@ -2438,7 +2442,7 @@ function clickmenu(config) {
 			margin: 0; padding: 0;
 			padding: 5px 0;
 			width: 200px;
-			z-index: 2000;
+			z-index: 200000000000000000;
 			cursor: default;
 
 		*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
