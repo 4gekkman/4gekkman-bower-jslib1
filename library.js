@@ -47,6 +47,7 @@
 		- ajax										  | Функция для отправки асинхронного AJAX-запроса
 		- getXhr										| Кроссбраузерно создаёт XHR-объект (в т.ч. для IE6)
 		- makeJSON									| Создать json-строку из переданного массива пар значений
+		- ajaxko                    | Функция для ajax-запросов в стиле ko к командам и контроллерам
 
   • Куки
 
@@ -1440,6 +1441,286 @@ function makeJSON(pairs) {
 	return JSON.stringify(data);
 
 }
+
+
+//----------//
+// > ajaxko //
+//----------//
+// - Функция для ajax-запросов в стиле ko к командам и контроллерам
+// - Описание полей config:
+//
+//    Поле                Умолчание      	  Описание
+//    ----------------------------------------------------------------------------------------------------------------
+// 		self 							| ajaxko          | Ссылка на функцию ajacko
+// 		from							| ""            	|	Пометка с инфой, кто вызвал функцию
+// 		from_ex       		| []            	|	Допускать машинный вызов только от указанных from
+// 		prejob						| function(){}    | Предварительная работа перед созданием ajax-конфига и отправкой запроса
+// 		command						| ""            	|	Полностью квалифицированный путь к команде, которую надо выполнить
+//    key 							| ""            	|	Ключ для снипета в контроллере, который надо выполнить
+//    data							| {}            	|	Объект с данными для передачи команде
+//    callback					| function(){}    | Callback-функция для вызова в конце ok
+//    ajax_method				| "post"          | Метод ajax-запроса
+//    ajax_headers			| {"Content-Type": "application/json", "X-CSRF-TOKEN": server.csrf_token} 	| Заголовки ajax-запроса
+//    ajax_request_body	| ""              | Переменная с телом запроса
+//    ajax_params				| {self: self, o: o, config: config} 	| Объект с параметрами запроса для передачи в обработчик
+// 		postjob						| function(){}    | Функция для выполнения в обработчике, до обработчиков статусов
+// 		ok_0      				| function(){}    | Обработчик, в случае ok-ответа, срабатывает если data.status == 0
+//    ok_1	            | function(){...} | Обработчик, в случае ok-ответа, срабатывает если data.status == -1
+//    ok_2    					| function(){...} | Обработчик, в случае ok-ответа, срабатывает если data.status == -2
+//    error			 				| function(){...} | Обработчик, срабатывает в случае error-ответ сервера
+//    timeout_secs			| 200             | Таймаут в секундах для ajax-запроса
+//    timeout						| function(){...} | Обработчик, срабатывает в случае timeout-ответа сервера
+//    url   						| window.location.href | URL для ajax-запроса
+//
+// - Обязательные поля:
+//
+//    Должно быть хотя бы 1-но из 2-ух: command | key
+//
+// - Пример:
+//
+//    ajaxko({
+//
+// 			command: 	"\\M1\\Commands\\C1_command",
+// 			from: 		"ajaxko",
+//      data: 		{},
+//      prejob: function(config, data, event){},
+//      postjob: function(data, params){},
+//      ok_0: function(data, params){},
+//      //ajax_params: {},
+//      //key: 			"D1:1",
+// 			//from_ex: 	[],
+//      //callback: function(data, params){},
+//      //ok_1: function(data, params){},
+//      //ok_2: function(data, params){},
+//      //error: function(){},
+//      //timeout: function(){},
+//      //timeout_sec: 200,
+//      //url: window.location.href,
+//      //ajax_method: "post",
+//      //ajax_headers: {"Content-Type": "application/json", "X-CSRF-TOKEN": server.csrf_token}
+//
+// 		});
+//
+//
+f.s0.ajaxko = function ajaxko(config, data, event) {
+
+	// 1] Назначить конфигу значения по умолчанию
+
+		// 1.1] Если объекта config нет, или config не объект, создать его
+		if(!config || (test = {}).toString.call(config).slice(8,-1) != "Object")
+			config = {};
+
+		// 1.2] Назначить умолчательные значения для отсутствующих св-в
+
+			// 1.2.1] self
+			config.self = ajaxko;
+
+			// 1.2.2] from
+			if(!config.from || (test = {}).toString.call(config.from).slice(8,-1) != "String")
+				config.from = "ajaxko";
+
+			// 1.2.3] from_ex
+			if(!config.from_ex || (test = {}).toString.call(config.from_ex).slice(8,-1) != "Array")
+				config.from_ex = [];
+
+			// 1.2.4] prejob
+			if(!config.prejob || (test = {}).toString.call(config.prejob).slice(8,-1) != "Function")
+				config.prejob = function(config, data, event){};
+
+			// 1.2.5] command
+			if(!config.command || (test = {}).toString.call(config.command).slice(8,-1) != "String")
+				config.command = "";
+
+			// 1.2.6] key
+			if(!config.key || (test = {}).toString.call(config.key).slice(8,-1) != "String")
+				config.key = "";
+
+			// 1.2.7] data
+			if(!config.data || (test = {}).toString.call(config.data).slice(8,-1) != "Object")
+				config.data = {};
+
+			// 1.2.8] callback
+			if(!config.callback || (test = {}).toString.call(config.callback).slice(8,-1) != "Function")
+				config.callback = function(){};
+
+			// 1.2.9] ajax_method
+			if(!config.ajax_method || (test = {}).toString.call(config.ajax_method).slice(8,-1) != "String")
+				config.ajax_method = "post";
+
+			// 1.2.10] ajax_headers
+			if(!config.ajax_headers || (test = {}).toString.call(config.ajax_headers).slice(8,-1) != "Object")
+				config.ajax_headers = {"Content-Type": "application/json", "X-CSRF-TOKEN": server.csrf_token};
+
+			// 1.2.11] ajax_request_body
+			if(!config.ajax_request_body || (test = {}).toString.call(config.ajax_request_body).slice(8,-1) != "String")
+				config.ajax_request_body = "";
+
+			// 1.2.12] ajax_params
+			if(!config.ajax_params || (test = {}).toString.call(config.ajax_params).slice(8,-1) != "Object")
+				config.ajax_params = {};
+
+			// 1.2.13] postjob
+			if(!config.postjob || (test = {}).toString.call(config.postjob).slice(8,-1) != "Function")
+				config.postjob = function(data, params){};
+
+			// 1.2.14] ok_0
+			if(!config.ok_0 || (test = {}).toString.call(config.ok_0).slice(8,-1) != "Function")
+				config.ok_0 = function(data, params){};
+
+			// 1.2.16] ok_1
+			if(!config.ok_1 || (test = {}).toString.call(config.ok_1).slice(8,-1) != "Function")
+				config.ok_1 = function(data, params){
+					notify({msg: 'You are not authorized to perform that operation', time: 5, fontcolor: 'RGB(200,50,50)'});
+					console.log('You are not authorized to perform that operation');
+				};
+
+			// 1.2.17] ok_2
+			if(!config.ok_2 || (test = {}).toString.call(config.ok_2).slice(8,-1) != "Function")
+				config.ok_2 = function(data, params){
+					console.log('An error has occurred. Look for details in log.');
+				};
+
+			// 1.2.18] error
+			if(!config.error || (test = {}).toString.call(config.error).slice(8,-1) != "Function")
+				config.error = function(xhr, status, event, target){
+					console.log(arguments[0].responseText);
+				};
+
+			// 1.2.19] timeout_secs
+			if(!config.timeout_secs || (test = {}).toString.call(config.timeout_secs).slice(8,-1) != "Number")
+				config.timeout_secs = 200;
+
+			// 1.2.20] timeout
+			if(!config.timeout || (test = {}).toString.call(config.timeout).slice(8,-1) != "Array")
+				config.timeout = [config.timeout_secs, function(){
+					console.log("Error: timeout "+config.timeout_secs+" seconds");
+				}];
+
+			// 1.2.21] url
+			if(!config.url || (test = {}).toString.call(config.url).slice(8,-1) != "String")
+				config.url = window.location.href;
+
+
+	// 2] Если и command, и key пусты, завершить
+	if(!config.command && !config.key) {
+		console.log("В ajaxko и command, и key пусты, завершаю...");
+		return;
+	}
+
+
+	// 3] Завершить, если функция вызвана не действием пользователя
+	// - И не определёнными программами.
+	// - А программно, прочими программами.
+	if(event)
+		if(!event.originalEvent && config.from_ex.indexOf(config.from) == -1)
+			return;
+
+
+	// 4] Применить "механизм отложенного сохранения для текстовых полей"
+	//if(f.s0.txt_delay_save.use(config.self.bind('', config, data, event)))
+	//	return;
+
+
+	// 5] Выполнить config.prejob
+	config.prejob(config, data, event);
+
+
+	// 6] Подготовить объект в виде json-строки к отправке на сервер
+	var o = {
+		command: 		config.command,
+		key:     		config.key,
+		data:    		config.data
+	};
+	o.data.timestamp = self.m.s0.ajax_timers[o.command + '_' + o.key] = Date.now();
+	var json = ko.toJSON(o);
+
+
+	// 7] Заблокировать закрытие документа, сделав пометку о наличии не сохранённых данных
+	f.s0.txt_delay_save.block();
+
+
+	// 8] Изменить на +1 счётчик ожидающих ответов ajax-запросов
+	self.m.s0.ajax_counter(+self.m.s0.ajax_counter() + 1);
+
+
+	// 9] Рассчитать объект с параметрами для ajax-запроса
+	var params4ajax = {self: self, o: o, config: config};
+	for(var key in config.ajax_params) {
+
+		// 9.1] Если свойство не своё, пропускаем
+		if(!config.ajax_params.hasOwnProperty(key)) continue;
+
+		// 9.2] Добавим в obj свойство key
+		params4ajax[key] = config.ajax_params[key];
+
+	}
+
+	// 10] Отправить объект на сервер ajax-запросом
+	ajax({
+		url: config.url,
+		method: config.ajax_method,
+		headers: config.ajax_headers,
+		requestBody: config.ajax_request_body ? config.ajax_request_body : json,
+		params: params4ajax,
+
+		// Обработка OK-ответа с сервера
+		callback: function(xhr, status, event, target, params) {
+
+			// 10.1] Получить ответ сервера
+			var data = JSON.parse(xhr.responseText);
+
+			// 10.2] Выполнить postjob
+			params.config.postjob(data, params);
+
+			// 10.3] Изменить на -1 счётчик ожидающих ответов ajax-запросов
+			self.m.s0.ajax_counter(+self.m.s0.ajax_counter() - 1);
+
+			// 10.4] Если data.timestamp < self.m.s0.ajax_timers[o.command + '_' + o.key]
+			if(data.timestamp < self.m.s0.ajax_timers[o.command + '_' + o.key]) return;
+
+			// 10.5] Разблокировать закрытие документа, убрав пометку о наличии не сохранённых данных
+			// - Но только, если m.s0.ajax_counter == 0
+			if(self.m.s0.ajax_counter() == 0)
+				f.s0.txt_delay_save.unblock();
+
+			// 10.6] Если data.status == 0
+			if(data.status == 0) {
+
+				// 10.6.1] Выполнить params.config.ok_0
+				params.config.ok_0(data, params);
+
+				// 10.6.2] Выполнить callback
+				if(params.config.callback) params.config.callback(data, params);
+
+			}
+
+			// 10.7] Если data.status == -1
+			if(data.status == -1) {
+
+				params.config.ok_1(data, params);
+
+			}
+
+			// 10.8] Если data.status == -2
+			if(data.status == -2) {
+
+				params.config.ok_2(data, params);
+
+			}
+
+		},
+
+		// Обработка ответа сервера в случае ошибки
+		error_callback: config.error,
+
+		// Обработка ответа сервера в случае таймаута
+		timeout: config.timeout
+
+	});
+
+};
+
+
 
 
 //-------------//
