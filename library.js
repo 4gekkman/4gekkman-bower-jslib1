@@ -1570,8 +1570,8 @@ function ajaxko(self, config) {
 			// 1.2.16] ok_1
 			if(!config.ok_1 || (test = {}).toString.call(config.ok_1).slice(8,-1) != "Function")
 				config.ok_1 = function(data, params){
-					notify({msg: 'You are not authorized to perform that operation', time: 5, fontcolor: 'RGB(200,50,50)'});
-					console.log('You are not authorized to perform that operation');
+					notify({msg: data.data + ': you are not authorized', time: 5, fontcolor: 'RGB(200,50,50)'});
+					console.log(data.data + ': you are not authorized to perform that operation');
 				};
 
 			// 1.2.17] ok_2
