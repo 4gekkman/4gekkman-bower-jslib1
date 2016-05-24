@@ -1471,6 +1471,7 @@ function makeJSON(pairs) {
 //    timeout_secs			| 200             | Таймаут в секундах для ajax-запроса
 //    timeout						| function(){...} | Обработчик, срабатывает в случае timeout-ответа сервера
 //    url   						| window.location.href | URL для ajax-запроса
+//    timestamp					| "" 							| Вручную указать timestamp для передачи серверу, актуально при загрузке изображений
 //
 // - Обязательные поля:
 //
@@ -1478,20 +1479,23 @@ function makeJSON(pairs) {
 //
 // - Пример:
 //
-//    ajaxko({
+//    ajaxko(self, {
 //
 // 			command: 	"\\M1\\Commands\\C1_command",
 // 			from: 		"ajaxko",
 //      data: 		{},
-//      prejob: function(config, data, event){},
-//      postjob: function(data, params){},
-//      ok_0: function(data, params){},
+//      prejob: 	function(config, data, event){},
+//      postjob: 	function(data, params){},
+//      ok_0: 		function(data, params){},
+//      ok_1: 		function(data, params){},
+//      ok_2: 		function(data, params){},
 //      //ajax_params: {},
+//			//ajax_request_body: fd,
+//			//timestamp:    Date.now(),
+//			//ajax_headers: {"X-CSRF-TOKEN": server.csrf_token},
 //      //key: 			"D1:1",
 // 			//from_ex: 	[],
 //      //callback: function(data, params){},
-//      //ok_1: function(data, params){},
-//      //ok_2: function(data, params){},
 //      //error: function(){},
 //      //timeout: function(){},
 //      //timeout_sec: 200,
@@ -1552,7 +1556,7 @@ function ajaxko(self, config) {
 				config.ajax_headers = {"Content-Type": "application/json", "X-CSRF-TOKEN": server.csrf_token};
 
 			// 1.2.11] ajax_request_body
-			if(!config.ajax_request_body || (test = {}).toString.call(config.ajax_request_body).slice(8,-1) != "String")
+			if(!config.ajax_request_body)
 				config.ajax_request_body = "";
 
 			// 1.2.12] ajax_params
@@ -1604,6 +1608,9 @@ function ajaxko(self, config) {
 			var data = self;
 			var event = self;
 
+			// 1.2.23] timestamp
+			if(!config.timestamp || (test = {}).toString.call(config.timestamp).slice(8,-1) != "Number")
+				config.timestamp = "";
 
 	// 2] Если и command, и key пусты, завершить
 	if(!config.command && !config.key) {
@@ -1635,7 +1642,7 @@ function ajaxko(self, config) {
 		key:     		config.key,
 		data:    		config.data
 	};
-	o.data.timestamp = self.m.s0.ajax_timers[o.command + '_' + o.key] = Date.now();
+	o.data.timestamp = self.m.s0.ajax_timers[o.command + '_' + o.key] = (config.timestamp ? config.timestamp : Date.now());
 	var json = ko.toJSON(o);
 
 
