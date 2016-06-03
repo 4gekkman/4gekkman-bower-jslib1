@@ -41,6 +41,7 @@
 
     - showModal								  | Функция вызывает модальное окно с text, и кнопкой "Да", вызывающей callback
     - notify										| На N секунд показывает в верхней части экрана плашку с заданной инфой
+		- popupCenter               | Открыть указанный URL в новом всплывающем окне указанных размеров по центру
 
 	• AJAX
 
@@ -425,8 +426,12 @@ function getBoundingDocRect(e) {
 		- Объект с результатами.
 
 	Содержимое объекта с результатами:
-		- width						| Ширина окна браузера
-		- height					| Высота окна браузера
+		- width						| Внутренняя ширина окна браузера
+		- height					| Внутренняя высота окна браузера
+		- outerWidth			| Внешняя ширина окна браузера
+		- outerHeight			| Внешняя высота окна браузера
+		- windowScreenX   | Расстояние от левого края экрана до ЛВ угла браузера
+		- windowScreenY   | Расстояние от верхнего края экрана до ЛВ угла браузера
 
 		- clientTop    		| Клиентская координата X ЛВ угла окна браузера (== 0)
 		- clientLeft  		| Клиентская координата Y ЛВ угла окна браузера (== 0)
@@ -514,6 +519,10 @@ function getBrowserWindowMetrics() {
 	return {
 		width: Math.round(width),
 		height: Math.round(height),
+		outerWidth: window.outerWidth,
+		outerHeight: window.outerHeight,
+		windowScreenX: window.screenX,
+		windowScreenY: window.screenY,
 
 		clientTop: Math.round(clientTop),
 		clientLeft: Math.round(clientLeft),
@@ -1169,6 +1178,40 @@ function notify(config) {
 }
 
 
+//---------------//
+// > popupCenter //
+//---------------//
+// - Открыть указанный URL в новом всплывающем окне указанных размеров по центру
+function popupCenter(url, title, widgh, height) {
+
+	// 1. Принять ширину и высоту нового окна
+	var newWindow = {};
+	newWindow.width = widgh ? widgh : 800;
+	newWindow.height = height ? height : 600;
+
+	// 2. Получить ширину и высоту экрана
+	var screenMetrics = {};
+	screenMetrics.width = screen.width;
+	screenMetrics.height = screen.height;
+
+	// 3. Вычислить координаты ЛВ угла нового окна
+	// - Чтобы его центр совпал с центром экрана
+	newWindow.left = (screenMetrics.width - newWindow.width)/2;
+	newWindow.top = (screenMetrics.height - newWindow.height)/2;
+
+	// 4. Создать новое окно
+	var newWindowInstance = window.open(url, title, 'scrollbars=yes, width=' + newWindow.width + ', height=' + newWindow.height + ', top=' + newWindow.top + ', left=' + newWindow.left);
+
+	// 5. Если создать новое окно удалось, перевести фокус на новое окно
+	if(newWindowInstance)
+		newWindowInstance.focus();
+
+	// 6. Вернуть newWindowInstance
+	return newWindowInstance;
+
+}
+
+
 /* getXhr //
 //--------//
 // - Кроссбраузерно создаёт XHR-объект (в т.ч. для IE6).
@@ -1447,65 +1490,6 @@ function makeJSON(pairs) {
 // > ajaxko //
 //----------//
 // - Функция для ajax-запросов в стиле ko к командам и контроллерам
-// - Описание полей config:
-//
-//    Поле                Умолчание      	  Описание
-//    ----------------------------------------------------------------------------------------------------------------
-// 		self 							| ajaxko          | Ссылка на функцию ajacko
-// 		from							| ""            	|	Пометка с инфой, кто вызвал функцию
-// 		from_ex       		| []            	|	Допускать машинный вызов только от указанных from
-// 		prejob						| function(){}    | Предварительная работа перед созданием ajax-конфига и отправкой запроса
-// 		command						| ""            	|	Полностью квалифицированный путь к команде, которую надо выполнить
-//    key 							| ""            	|	Ключ для снипета в контроллере, который надо выполнить
-//    data							| {}            	|	Объект с данными для передачи команде
-//    callback					| function(){}    | Callback-функция для вызова в конце ok
-//    ajax_method				| "post"          | Метод ajax-запроса
-//    ajax_headers			| {"Content-Type": "application/json", "X-CSRF-TOKEN": server.csrf_token} 	| Заголовки ajax-запроса
-//    ajax_request_body	| ""              | Переменная с телом запроса
-//    ajax_params				| {self: self, o: o, config: config} 	| Объект с параметрами запроса для передачи в обработчик
-// 		postjob						| function(){}    | Функция для выполнения в обработчике, до обработчиков статусов
-// 		ok_0      				| function(){}    | Обработчик, в случае ok-ответа, срабатывает если data.status == 0
-//    ok_1	            | function(){...} | Обработчик, в случае ok-ответа, срабатывает если data.status == -1
-//    ok_2    					| function(){...} | Обработчик, в случае ok-ответа, срабатывает если data.status == -2
-//    error			 				| function(){...} | Обработчик, срабатывает в случае error-ответ сервера
-//    timeout_secs			| 200             | Таймаут в секундах для ajax-запроса
-//    timeout						| function(){...} | Обработчик, срабатывает в случае timeout-ответа сервера
-//    url   						| window.location.href | URL для ajax-запроса
-//    timestamp					| "" 							| Вручную указать timestamp для передачи серверу, актуально при загрузке изображений
-//
-// - Обязательные поля:
-//
-//    Должно быть хотя бы 1-но из 2-ух: command | key
-//
-// - Пример:
-//
-//    ajaxko(self, {
-//
-// 			command: 	"\\M1\\Commands\\C1_command",
-// 			from: 		"ajaxko",
-//      data: 		{},
-//      prejob: 	function(config, data, event){},
-//      postjob: 	function(data, params){},
-//      ok_0: 		function(data, params){},
-//      ok_1: 		function(data, params){},
-//      ok_2: 		function(data, params){},
-//      //ajax_params: {},
-//			//ajax_request_body: fd,
-//			//timestamp:    Date.now(),
-//			//ajax_headers: {"X-CSRF-TOKEN": server.csrf_token},
-//      //key: 			"D1:1",
-// 			//from_ex: 	[],
-//      //callback: function(data, params){},
-//      //error: function(){},
-//      //timeout: function(){},
-//      //timeout_sec: 200,
-//      //url: window.location.href,
-//      //ajax_method: "post",
-//      //ajax_headers: {"Content-Type": "application/json", "X-CSRF-TOKEN": server.csrf_token}
-//
-// 		});
-//
-//
 function ajaxko(self, config) {
 
 	// 1] Назначить конфигу значения по умолчанию
@@ -3084,8 +3068,6 @@ function smoothscrollyTo(y, dur, callback) {
 	}, 1/duration*1000);
 
 }
-
-
 
 
 
