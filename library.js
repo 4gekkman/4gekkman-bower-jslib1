@@ -1596,6 +1596,10 @@ function ajaxko(self, config) {
 			if(!config.timestamp || (test = {}).toString.call(config.timestamp).slice(8,-1) != "Number")
 				config.timestamp = "";
 
+	    // 1.2.24] dont_touch_ajax_counter
+			if(!config.dont_touch_ajax_counter)
+				config.dont_touch_ajax_counter = false;
+
 	// 2] Если и command, и key пусты, завершить
 	if(!config.command && !config.key) {
 		console.log("В ajaxko и command, и key пусты, завершаю...");
@@ -1635,7 +1639,8 @@ function ajaxko(self, config) {
 
 
 	// 8] Изменить на +1 счётчик ожидающих ответов ajax-запросов
-	self.m.s0.ajax_counter(+self.m.s0.ajax_counter() + 1);
+	if(!config.dont_touch_ajax_counter)
+		self.m.s0.ajax_counter(+self.m.s0.ajax_counter() + 1);
 
 
 	// 9] Рассчитать объект с параметрами для ajax-запроса
@@ -1668,7 +1673,8 @@ function ajaxko(self, config) {
 			params.config.postjob(data, params);
 
 			// 10.3] Изменить на -1 счётчик ожидающих ответов ajax-запросов
-			self.m.s0.ajax_counter(+self.m.s0.ajax_counter() - 1);
+			if(!params.config.dont_touch_ajax_counter)
+				self.m.s0.ajax_counter(+self.m.s0.ajax_counter() - 1);
 
 			// 10.4] Если data.timestamp < self.m.s0.ajax_timers[o.command + '_' + o.key]
 			if(data.timestamp < self.m.s0.ajax_timers[o.command + '_' + o.key]) return;
