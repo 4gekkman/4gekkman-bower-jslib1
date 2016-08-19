@@ -121,6 +121,9 @@ function addEvent(element, event, handler, params, phase) {
 	// 2. Подготовить функцию для подписки ф-ии handler на событие element
 	var subscribe = function(event) {
 
+		// Если element пуст, завершить
+		if(!element) return;
+
 		// Проверить, существует ли в этом браузере метод addEventListener
 		// - Если да, то использовать его.
 		// - Если нет, значит это старый IE, и использовать attachEvent
