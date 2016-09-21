@@ -899,7 +899,6 @@ function showModal(config) {
 
 			}
 
-
 		}
 
 	// 5. Кроссбраузерно назначить обработчик события 'click' эл-ту button_ok
