@@ -75,7 +75,7 @@
   	- getChar                   | Кроссбраузерно получить код символа из события keypress
   	- cubicbezier               | Изменение значения по заданной кривой
   	- smoothscrollyTo           | Плавно изменить прокрутку окна по координате Y к указанной координате
-
+		- hereDoc                   | Для создания многострочных строковых литералов
 
 
 ////==================================================////
@@ -3078,9 +3078,27 @@ function smoothscrollyTo(y, dur, callback) {
 }
 
 
-
-
-
-
+//-----------//
+// > hereDoc //
+//-----------//
+// - Для создания многострочных строковых литералов
+// - Пример:
+//
+// 		var str = hereDoc(function() {/*!
+// 			<div style="display: none;" class="tabs" data-bind="if: (m.s1.item().cat.breadcrumbs()[0].alias() == 'pizza'), visible: (m.s1.item().cat.breadcrumbs()[0].alias() == 'pizza')">
+// 				<string>Тесто</string>
+// 				<!-- ko foreach: m.s1.item().dough.variants -->
+// 					<a href="#" data-bind="text: name" data-bind="css: {active: $component.m.s1.item().dough.choosen() == $data}, click: function(){}></a>
+// 				<!-- /ko -->
+// 			</div>
+// 		*/});
+// 		console.log(str);
+//
+//
+function hereDoc(f) {
+  return f.toString().
+      replace(/^[^\/]+\/\*!?/, '').
+      replace(/\*\/[^\/]+$/, '');
+}
 
 
